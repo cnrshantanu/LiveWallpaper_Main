@@ -5,12 +5,9 @@ Wallpaper for controlling facebook pictures
 
 
 FYI - <BR>
-
 SCREEN DIMENSIONS (NEEDS TO BE CHECKED IN DIFF PHONES) <BR> 
-
-Xmax  - 1.5f   Xmin -  -1.5f
-Ymax  - 2.5f   Ymin -  -2.5f
-
+Xmax  - 1.5f   Xmin -  -1.5f <BR> 
+Ymax  - 2.5f   Ymin -  -2.5f <BR> 
 1. Checked on XPERIA S
 
 
