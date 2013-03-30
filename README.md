@@ -4,6 +4,16 @@ LiveWallpaper_Main
 Wallpaper for controlling facebook pictures
 
 
+FYI - <BR>
+
+SCREEN DIMENSIONS (NEEDS TO BE CHECKED IN DIFF PHONES) <BR> 
+
+Xmax  - 1.5f   Xmin -  -1.5f
+Ymax  - 2.5f   Ymin -  -2.5f
+
+1. Checked on XPERIA S
+
+
 PROGRESS - <BR>
 1. Fixed memory leakage problem. <BR>
 2. Currently implementing algorithm to display grid and extract random picture from a folder in SD card.
