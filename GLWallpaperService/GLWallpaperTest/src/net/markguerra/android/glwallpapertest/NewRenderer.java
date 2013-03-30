@@ -61,7 +61,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		gl.glLoadIdentity();
 
 		// Drawing
-		gl.glTranslatef(0.0f, 0.0f, -5.0f);		// move 5 units INTO the screen
+		gl.glTranslatef(0.0f, 0.0f, -6.0f);		// move 5 units INTO the screen
 												// is the same as moving the camera 5 units away
 //		gl.glScalef(0.5f, 0.5f, 0.5f);			// scale the square to 50% 
 												// otherwise it will be too large
@@ -87,7 +87,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		gl.glLoadIdentity(); 					//Reset The Projection Matrix
 
 		//Calculate The Aspect Ratio Of The Window
-		//GLU.gluPerspective(gl, 45.0f, (float)width / (float)height, 0.1f, 100.0f);
+		GLU.gluPerspective(gl, 45.0f, (float)width / (float)height, 0.1f, 100.0f);
 		//GLU.gluOrtho2D(gl, 0, width, 0, height);
 		
 		gl.glMatrixMode(GL10.GL_MODELVIEW); 	//Select The Modelview Matrix

@@ -14,6 +14,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
+import android.util.Log;
 import android.view.Display;
 
 /**
@@ -22,8 +23,8 @@ import android.view.Display;
  */
 public class Square1 {
 	
-	private static final int C_REVOLUTION_VELOCITY_MAX = 4;
-	private static final int C_REVOLUTION_VELOCITY_MIN = -2;
+	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
+	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
 	private static final int C_ORBIT_MAX = 9;
 	private static final int C_ORBIT_MIN = 4;
 	private static final int C_SCALE_MIN = 20;
@@ -32,12 +33,13 @@ public class Square1 {
 	private float m_y = ((float)Math.random() * 6.f) -3.f;
 	private float m_y_speed = ((float)Math.random() * 0.25f)+0.05f;
 	private int rotation_angle;
-	private int revolution_angle;
+	private float revolution_angle;
 	private int orbit;
 	private float rotation_velocity;
 	private float revolution_velocity;
 	private float scale;
 	private float revolve_axis[] = {0*(float)Math.random(),(float)Math.random(),0*(float)Math.random()};
+	static float x = 0;
 	static GL10 gl_main;
 	
 	private int direction = 1;
@@ -72,10 +74,10 @@ public class Square1 {
 	};
 	*/
 	private float vertices[] = {
-			-1.0f, -1.0f,  -1.0f,		// V1 - bottom left
-			-1.0f,  1.0f,  -1.0f,		// V2 - top left
-			 1.0f, -1.0f,  -1.0f,		// V3 - bottom right
-			 1.0f,  1.0f,  -1.0f,		// V4 - top right
+			-1.5f, 0.0f,  0.0f,		// V1 - bottom left
+			-1.5f,  2.5f,  0.0f,		// V2 - top left
+			 0.0f, 0.0f,  0.0f,		// V3 - bottom right
+			 0.0f,  2.5f,  0.0f,		// V4 - top right
 			
 			 
 	};
@@ -117,6 +119,7 @@ public class Square1 {
 		revolution_angle = 0;
 		
 		revolution_velocity	= C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
+		revolution_velocity /= 5 ;
 		orbit= C_ORBIT_MIN 	+ (int)(Math.random()* C_ORBIT_MAX);
 		scale = C_SCALE_MIN + (int)(Math.random()* C_SCALE_MAX);
 		scale /= 10.f;
@@ -166,6 +169,12 @@ public class Square1 {
 	/** The draw method for the square with the GL context */
 	public void draw(GL10 gl) {
 		// bind the previously generated texture
+		
+		///x-= 0.0002;
+		x = 0.5f;
+		float y = 1.5f;
+		Log.d("","DEBUG Position"+x);
+		
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
 		
 		// Point to our buffers
@@ -182,8 +191,42 @@ public class Square1 {
 		// Draw the vertices as triangle strip
 		gl.glPushMatrix();
 		{
-			//gl.glScalef(2, 2, 2);
-			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
+			//gl.glTranslatef(x,y,0);
+			gl.glPushMatrix();
+			{
+				gl.glTranslatef(-1.5f/2,0f,0f);
+				gl.glRotatef(revolution_angle, 0, 1, 0);
+				gl.glTranslatef(1.5f/2,0f,0f);
+				gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
+			}
+			gl.glPopMatrix();
+			gl.glTranslatef(1.5f,0f,0f);
+			gl.glPushMatrix();
+			{
+				gl.glTranslatef(-1.5f/2,0f,0f);
+				gl.glRotatef(-revolution_angle, 0, 1, 0);
+				gl.glTranslatef(1.5f/2,0f,0f);
+				gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
+			}
+			gl.glPopMatrix();
+			gl.glTranslatef(0f,-2.5f,0f);
+			gl.glPushMatrix();
+			{
+				gl.glTranslatef(-1.5f/2,0f,0f);
+				gl.glRotatef(revolution_angle, 0, 1, 0);
+				gl.glTranslatef(1.5f/2,0f,0f);
+				gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
+			}
+			gl.glPopMatrix();
+			gl.glTranslatef(-1.5f,0f,0f);
+			gl.glPushMatrix();
+			{
+				gl.glTranslatef(-1.5f/2,0f,0f);
+				gl.glRotatef(-revolution_angle, 0, 1, 0);
+				gl.glTranslatef(1.5f/2,0f,0f);
+				gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
+			}
+			gl.glPopMatrix();
 			//gl.glTranslatef(0, m_y, -35);
 			//gl.glRotatef(revolution_angle, revolve_axis[0], revolve_axis[1], revolve_axis[2]);
 			//gl.glTranslatef(0, 0, -orbit);
@@ -191,6 +234,7 @@ public class Square1 {
 			//rotate_image(gl);
 		}
 		gl.glPopMatrix();
+		/*gl.glPopMatrix();
 		gl.glMatrixMode (gl.GL_MODELVIEW);
 		gl.glPushMatrix ();
 		gl.glLoadIdentity ();
@@ -202,7 +246,7 @@ public class Square1 {
 		gl.glPopMatrix ();
 		gl.glMatrixMode (gl.GL_MODELVIEW);
 		gl.glPopMatrix ();
-		
+		*/
 
 		//Disable the client state before leaving
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);

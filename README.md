@@ -15,6 +15,7 @@ PENDING -
    Currently on install a gallery application is also installed. This needs to be removed.
 3. Rename package.
 4. Investigate on having a settings page on liveWallper.
+5. Change square to cube, for rotation.
 
 
 
