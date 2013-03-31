@@ -103,6 +103,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		if(m_init)
 			return;
 		
+		m_init = true;
+		
 		for(int i=0;i<C_IMAGES_MAX-1;i++)
 		{
 			if(i<C_IMAGES_MAX *0.3)
@@ -139,18 +141,24 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 
 	}
 	public void release() {
-		Log.d("*#DEBUG","*#DEBUG And i am released");
-		for(int i=0;i<C_IMAGES_MAX;i++)
-		{
-			mImage[i].release();
-		}
+		if(!m_init)
+			return;
+		
 	}
 
 	public void onSurfacePause(GL10 gl, int width, int height) {
 		// TODO Auto-generated method stub
+		if(!m_init)
+			return;
+		
 		Log.d("*#DEBUG","*#DEBUG surface DESTROYED");
 		release();
-		
+		Log.d("*#DEBUG","*#DEBUG And i am released");
+		for(int i=0;i<C_IMAGES_MAX;i++)
+		{
+			mImage[i].release(gl);
+		}
+		m_init = false;
 	}
 
 }

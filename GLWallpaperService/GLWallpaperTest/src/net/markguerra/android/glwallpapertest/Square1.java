@@ -42,8 +42,7 @@ public class Square1 {
 	private float scale;
 	private float revolve_axis[] = {0*(float)Math.random(),(float)Math.random(),0*(float)Math.random()};
 	static float x = 0;
-	static GL10 gl_main;
-	
+		
 	private int direction = 1;
 	
 	private FloatBuffer vertexBuffer;	// buffer holding the vertices
@@ -170,10 +169,23 @@ public class Square1 {
 		
 		
 		bitmap.recycle();
-		gl_main = gl;
 	}
 
-	
+	public void drawImage(GL10 gl){
+		
+		gl.glPushMatrix();
+		{
+			
+			gl.glTranslatef(-1.5f/2,2.5f/2,0f);
+			gl.glScalef(0.97f, 0.97f, 0f);
+			gl.glRotatef(revolution_angle, 0, 1, 0);
+			gl.glTranslatef(1.5f/2,-2.5f/2f,0f);
+			
+			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
+		}
+		gl.glPopMatrix();
+		
+	}
 	/** The draw method for the square with the GL context */
 	public void draw(GL10 gl) {
 		// bind the previously generated texture
@@ -181,7 +193,7 @@ public class Square1 {
 		///x-= 0.0002;
 		x = 0.5f;
 		float y = 1.5f;
-		Log.d("","DEBUG Position"+x);
+
 		
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
 		
@@ -200,46 +212,13 @@ public class Square1 {
 		gl.glPushMatrix();
 		{
 			//gl.glTranslatef(x,y,0);
-			gl.glPushMatrix();
-			{
-				gl.glTranslatef(-1.5f/2,0f,0f);
-				gl.glRotatef(revolution_angle, 0, 1, 0);
-				gl.glTranslatef(1.5f/2,0f,0f);
-				gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
-			}
-			gl.glPopMatrix();
+			drawImage(gl);
 			gl.glTranslatef(1.5f,0f,0f);
-			gl.glPushMatrix();
-			{
-				gl.glTranslatef(-1.5f/2,0f,0f);
-				gl.glRotatef(-revolution_angle, 0, 1, 0);
-				gl.glTranslatef(1.5f/2,0f,0f);
-				gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
-			}
-			gl.glPopMatrix();
+			drawImage(gl);
 			gl.glTranslatef(0f,-2.5f,0f);
-			gl.glPushMatrix();
-			{
-				gl.glTranslatef(-1.5f/2,0f,0f);
-				gl.glRotatef(revolution_angle, 0, 1, 0);
-				gl.glTranslatef(1.5f/2,0f,0f);
-				gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
-			}
-			gl.glPopMatrix();
+			drawImage(gl);
 			gl.glTranslatef(-1.5f,0f,0f);
-			gl.glPushMatrix();
-			{
-				gl.glTranslatef(-1.5f/2,0f,0f);
-				gl.glRotatef(-revolution_angle, 0, 1, 0);
-				gl.glTranslatef(1.5f/2,0f,0f);
-				gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
-			}
-			gl.glPopMatrix();
-			//gl.glTranslatef(0, m_y, -35);
-			//gl.glRotatef(revolution_angle, revolve_axis[0], revolve_axis[1], revolve_axis[2]);
-			//gl.glTranslatef(0, 0, -orbit);
-			
-			//rotate_image(gl);
+			drawImage(gl);
 		}
 		gl.glPopMatrix();
 		/*gl.glPopMatrix();
@@ -265,8 +244,8 @@ public class Square1 {
 		
 		
 	}
-	public void release(){
-		gl_main.glDeleteTextures(1, textures, 0);
+	public void release(GL10 gl){
+		gl.glDeleteTextures(1, textures, 0);
 	}
 	
 	public void update(){
