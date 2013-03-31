@@ -20,3 +20,6 @@ Currently on install a gallery application is also installed. This needs to be r
 5. Change square to cube, for proper change of pics.
 
 ***************** PEACE ***************************************************
+
+
+tesolljdgloj
