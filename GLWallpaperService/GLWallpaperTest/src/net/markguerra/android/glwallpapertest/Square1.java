@@ -25,24 +25,15 @@ public class Square1 {
 	
 	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
 	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
-	private static final int C_ORBIT_MAX = 9;
-	private static final int C_ORBIT_MIN = 4;
-	private static final int C_SCALE_MIN = 20;
-	private static final int C_SCALE_MAX = 2;
-	
+		
 	private float m_y = ((float)Math.random() * 6.f) -3.f;
 	private float m_y_speed = ((float)Math.random() * 0.25f)+0.05f;
 	private float m_imageW = 0;
 	private float m_imageH = 0;
 	private int rotation_angle;
 	private float revolution_angle;
-	private int orbit;
-	private float rotation_velocity;
 	private float revolution_velocity;
-	private float scale;
-	private float revolve_axis[] = {0*(float)Math.random(),(float)Math.random(),0*(float)Math.random()};
-	static float x = 0;
-		
+			
 	private int direction = 1;
 	
 	private FloatBuffer vertexBuffer;	// buffer holding the vertices
@@ -121,11 +112,6 @@ public class Square1 {
 		
 		revolution_velocity	= C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
 		revolution_velocity /= 5 ;
-		orbit= C_ORBIT_MIN 	+ (int)(Math.random()* C_ORBIT_MAX);
-		scale = C_SCALE_MIN + (int)(Math.random()* C_SCALE_MAX);
-		scale /= 10.f;
-		scale = 1;
-		rotation_velocity = 0;
 	}
 
 	/**
@@ -137,6 +123,7 @@ public class Square1 {
 		// loading texture
 		Bitmap bitmap = BitmapFactory.decodeResource(resource,id);
 		loadGLTexture(gl,bitmap);
+		bitmap.recycle();
 	}
 	
 	public void loadGLTexture(GL10 gl,Bitmap bitmap) {
@@ -191,10 +178,6 @@ public class Square1 {
 		// bind the previously generated texture
 		
 		///x-= 0.0002;
-		x = 0.5f;
-		float y = 1.5f;
-
-		
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
 		
 		// Point to our buffers
@@ -209,32 +192,7 @@ public class Square1 {
 		gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, textureBuffer);
 		
 		// Draw the vertices as triangle strip
-		gl.glPushMatrix();
-		{
-			//gl.glTranslatef(x,y,0);
-			drawImage(gl);
-			gl.glTranslatef(1.5f,0f,0f);
-			drawImage(gl);
-			gl.glTranslatef(0f,-2.5f,0f);
-			drawImage(gl);
-			gl.glTranslatef(-1.5f,0f,0f);
-			drawImage(gl);
-		}
-		gl.glPopMatrix();
-		/*gl.glPopMatrix();
-		gl.glMatrixMode (gl.GL_MODELVIEW);
-		gl.glPushMatrix ();
-		gl.glLoadIdentity ();
-		gl.glMatrixMode (gl.GL_PROJECTION);
-		gl.glPushMatrix ();
-		gl.glLoadIdentity ();
-		gl.glRotatef(revolution_angle, 0, 1, 0);
-		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
-		gl.glPopMatrix ();
-		gl.glMatrixMode (gl.GL_MODELVIEW);
-		gl.glPopMatrix ();
-		*/
-
+		drawImage(gl);
 		//Disable the client state before leaving
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
@@ -251,29 +209,14 @@ public class Square1 {
 	public void update(){
 		
 		// for rotation
-		rotation_angle+= rotation_velocity;
-		if(rotation_angle>360)
-			rotation_angle-=360;
-		
+			
 		revolution_angle-=revolution_velocity;
 		if(revolution_angle>360)
 			revolution_angle-=360;
 		
-		m_y+= direction * m_y_speed;
-		
-		if(m_y > 20 || m_y< -20)
-			direction *= -1;
-		
 	}
 	
 	//-------------- draw functions -----
-	private void rotate_image(GL10 gl){
-		gl.glPushMatrix();
-		gl.glRotatef(rotation_angle, 0, 0, 1);
-		gl.glScalef(scale, scale, scale);
-		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices.length / 3);
-		gl.glPopMatrix();
-	}
-	
+		
 }
 

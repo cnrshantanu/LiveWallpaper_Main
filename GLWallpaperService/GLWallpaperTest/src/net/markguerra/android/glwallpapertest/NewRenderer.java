@@ -10,6 +10,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import net.rbgrn.android.glwallpaperservice.GLWallpaperService;
 
+import android.R.string;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -27,7 +28,7 @@ import android.widget.Toast;
  */
 public class NewRenderer implements GLWallpaperService.Renderer {
 
-	private static final int 	C_IMAGES_MAX = 1;
+	private static final int 	C_IMAGES_MAX = 4;
 	private static Square1[]  			mImage		 = new Square1[C_IMAGES_MAX];
 	private	static Boolean		m_init       = false;
 	//private Square1 		square;		// the square
@@ -65,10 +66,23 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 												// is the same as moving the camera 5 units away
 //		gl.glScalef(0.5f, 0.5f, 0.5f);			// scale the square to 50% 
 												// otherwise it will be too large
-		for(int i=0;i<C_IMAGES_MAX;i++)
+		int index = 0;
+		gl.glPushMatrix();
 		{
-			mImage[i].draw(gl);
+			//gl.glTranslatef(x,y,0);
+			mImage[index].draw(gl);
+			gl.glTranslatef(1.5f,0f,0f);
+			index++;
+			mImage[index].draw(gl);
+			gl.glTranslatef(0f,-2.5f,0f);
+			index++;
+			mImage[index].draw(gl);
+			gl.glTranslatef(-1.5f,0f,0f);
+			index++;
+			mImage[index].draw(gl);
 		}
+		gl.glPopMatrix();
+		
 
 	}
 	//@Override
@@ -94,7 +108,21 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		gl.glLoadIdentity(); 					//Reset The Modelview Matrix
 	}
     
-	
+	public void loadImage(GL10 gl,String file_path,int index){
+		
+		String path = Environment.getExternalStorageDirectory()+ file_path;
+		File imgFile = new File(path);
+        if(imgFile.exists())
+        {
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());                  
+            Log.d("*#DEBUG"," *#DEBUG Got it baby");
+            mImage[index].loadGLTexture(gl, myBitmap);
+            myBitmap.recycle();
+        }
+        else                    
+            Log.d("*#DEBUG","No such image exists");
+        
+	}
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		// Load the texture for the square
@@ -114,19 +142,15 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			else
 				mImage[i].loadGLTexture(gl, this.resource,R.drawable.android);
 		}
-		
-		String path = Environment.getExternalStorageDirectory()+ "/Hiromi/a.jpg";
-		File imgFile = new File(path);
-        if(imgFile.exists())
-        {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());                  
-            Log.d("*#DEBUG"," *#DEBUG Got it baby");
-            mImage[C_IMAGES_MAX-1].loadGLTexture(gl, myBitmap);
-            myBitmap.recycle();
-        }
-        else                    
-            Log.d("*#DEBUG","No such image exists");
-        
+		int index = 0;
+		loadImage(gl,"/Hiromi/a.jpg",index);
+		index++;
+		loadImage(gl,"/Hiromi/b.jpg",index);
+		index++;
+		loadImage(gl,"/Hiromi/c.jpg",index);
+		index++;
+		loadImage(gl,"/Hiromi/d.jpg",index);
+		        
         
 		
 		gl.glEnable(GL10.GL_TEXTURE_2D);			//Enable Texture Mapping ( NEW )
