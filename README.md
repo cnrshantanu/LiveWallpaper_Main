@@ -19,6 +19,7 @@ Currently on install a gallery application is also installed. This needs to be r
 4. Investigate on having a settings page on liveWallper.<BR>
 5. Change square to cube, for proper change of pics.<BR>
 6. Add touch event callback.<BR>
+7. The time taken to load an image takes time, therefore we need a separate thread to load images.<BR>
 
 ***************** PEACE ***************************************************
 

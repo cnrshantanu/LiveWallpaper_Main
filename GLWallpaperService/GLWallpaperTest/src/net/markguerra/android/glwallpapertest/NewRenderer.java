@@ -23,7 +23,7 @@ import android.view.SurfaceHolder;
 import android.widget.Toast;
 
 /**
- * @author impaler
+ * @author Shantanu Das
  *
  */
 public class NewRenderer implements GLWallpaperService.Renderer {
@@ -132,16 +132,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			return;
 		
 		m_init = true;
-		
-		for(int i=0;i<C_IMAGES_MAX-1;i++)
-		{
-			if(i<C_IMAGES_MAX *0.3)
-			mImage[i].loadGLTexture(gl, this.resource,R.drawable.android2);
-			else if(i<C_IMAGES_MAX *0.6)
-				mImage[i].loadGLTexture(gl, this.resource,R.drawable.android1);
-			else
-				mImage[i].loadGLTexture(gl, this.resource,R.drawable.android);
-		}
+	
 		int index = 0;
 		loadImage(gl,"/Hiromi/a.jpg",index);
 		index++;

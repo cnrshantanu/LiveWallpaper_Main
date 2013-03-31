@@ -25,14 +25,16 @@ public class Square1 {
 	
 	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
 	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
-	private static final int C_TTL_MAX = 2;
-	private static final int C_TTL_MIN = 1;
+	private static final int C_TTL_MAX = 8000;
+	private static final int C_TTL_MIN = 4000;
 	
 	private float m_imageW = 0;
 	private float m_imageH = 0;
+	private long  time_start = 0;
 	private float revolution_angle;
 	private float revolution_velocity;
 	private int   ttl = 0;
+	private boolean m_rotate = false;
 			
 		
 	private FloatBuffer vertexBuffer;	// buffer holding the vertices
@@ -107,9 +109,11 @@ public class Square1 {
 		textureBuffer.position(0);
 		
 		revolution_angle = 0;
+		time_start = System.currentTimeMillis();
 		
-		revolution_velocity	= C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
-		revolution_velocity /= 5 ;
+		revolution_velocity	= 2;//C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
+		ttl = C_TTL_MIN + (int)(Math.random() * C_TTL_MAX);
+		//revolution_velocity /= 5 ;
 	}
 
 	/**
@@ -207,10 +211,31 @@ public class Square1 {
 	public void update(){
 		
 		// for rotation
+		if(m_rotate) {
 			
-		revolution_angle-=revolution_velocity;
-		if(revolution_angle>360)
-			revolution_angle-=360;
+			revolution_angle+=revolution_velocity;
+			if(revolution_angle == 180)
+			{
+			//	revolution_angle=180;
+				m_rotate = false;
+			}
+			else if(revolution_angle == 360)
+			{
+				revolution_angle=0;
+				m_rotate = false;
+			} 
+			if(!m_rotate){
+				time_start = System.currentTimeMillis();
+				ttl = C_TTL_MIN + (int)(Math.random() * C_TTL_MAX);
+			}
+		
+		}
+		else {
+			if(System.currentTimeMillis() - time_start > ttl)
+			{
+				m_rotate = true;
+			}
+		}
 		
 	}
 	
