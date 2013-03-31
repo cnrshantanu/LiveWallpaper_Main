@@ -25,17 +25,16 @@ public class Square1 {
 	
 	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
 	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
-		
-	private float m_y = ((float)Math.random() * 6.f) -3.f;
-	private float m_y_speed = ((float)Math.random() * 0.25f)+0.05f;
+	private static final int C_TTL_MAX = 2;
+	private static final int C_TTL_MIN = 1;
+	
 	private float m_imageW = 0;
 	private float m_imageH = 0;
-	private int rotation_angle;
 	private float revolution_angle;
 	private float revolution_velocity;
+	private int   ttl = 0;
 			
-	private int direction = 1;
-	
+		
 	private FloatBuffer vertexBuffer;	// buffer holding the vertices
 	/*
 	private float vertices[] = {
@@ -107,7 +106,6 @@ public class Square1 {
 		textureBuffer.put(texture);
 		textureBuffer.position(0);
 		
-		rotation_angle = 0;
 		revolution_angle = 0;
 		
 		revolution_velocity	= C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
