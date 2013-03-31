@@ -32,6 +32,8 @@ public class Square1 {
 	
 	private float m_y = ((float)Math.random() * 6.f) -3.f;
 	private float m_y_speed = ((float)Math.random() * 0.25f)+0.05f;
+	private float m_imageW = 0;
+	private float m_imageH = 0;
 	private int rotation_angle;
 	private float revolution_angle;
 	private int orbit;
@@ -157,10 +159,16 @@ public class Square1 {
 //		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_REPEAT);
 //		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_REPEAT);
 		
-		// Use Android GLUtils to specify a two-dimensional texture image from our bitmap 
+		// Use Android GLUtils to specify a two-dimensional texture image from our bitmap
+		
 		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
 		
+		m_imageW = bitmap.getWidth();
+		m_imageH = bitmap.getHeight();		
+		
 		// Clean up
+		
+		
 		bitmap.recycle();
 		gl_main = gl;
 	}
