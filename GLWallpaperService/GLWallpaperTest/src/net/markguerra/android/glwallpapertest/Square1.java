@@ -146,7 +146,7 @@ public class Square1 {
 		revolution_angle = 0;
 		time_start = System.currentTimeMillis();
 		
-		revolution_velocity	= 0.5f;//C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
+		revolution_velocity	= 2.f;//C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
 		ttl = C_TTL_MIN + (int)(Math.random() * C_TTL_MAX);
 		//revolution_velocity /= 5 ;
 	}
@@ -214,20 +214,19 @@ public class Square1 {
 			vertexBuffer.position(0);
 			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices_frontface.length / 3);
 			
-			gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 			vertexBuffer.put(vertices_backface);
 			vertexBuffer.position(0);
 			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices_frontface.length / 3);
 			
-
+			gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 			
-			/*vertexBuffer.put(vertices_rightface);
+			vertexBuffer.put(vertices_rightface);
 			vertexBuffer.position(0);
 			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices_frontface.length / 3);
 	
 			vertexBuffer.put(vertices_leftface);
 			vertexBuffer.position(0);
-			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices_frontface.length / 3);*/
+			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices_frontface.length / 3);
 		}
 		gl.glPopMatrix();
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
@@ -268,9 +267,6 @@ public class Square1 {
 		
 		// for rotation
 		
-		revolution_angle+=revolution_velocity;
-		
-		/*
 		if(m_rotate) {
 			
 			revolution_angle+=revolution_velocity;
@@ -295,7 +291,7 @@ public class Square1 {
 			{
 				m_rotate = true;
 			}
-		}*/
+		}
 		
 	}
 	
