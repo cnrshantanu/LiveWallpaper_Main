@@ -31,6 +31,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	private static final int 	C_IMAGES_MAX = 4;
 	private static Square1[]  			mImage		 = new Square1[C_IMAGES_MAX];
 	private	static Boolean		m_init       = false;
+	private int m_width = 30;
+	private int m_height = 40;
 	//private Square1 		square;		// the square
 	private Resources 			resource;
 		
@@ -95,7 +97,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		if(height == 0) { 						//Prevent A Divide By Zero By
 			height = 1; 						//Making Height Equal One
 		}
-
+		m_width = width;
+		m_height = height;
 		gl.glViewport(0, 0, width, height); 	//Reset The Current Viewport
 		gl.glMatrixMode(GL10.GL_PROJECTION); 	//Select The Projection Matrix
 		gl.glLoadIdentity(); 					//Reset The Projection Matrix
@@ -114,7 +117,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		File imgFile = new File(path);
         if(imgFile.exists())
         {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());                  
+          //  Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            Bitmap myBitmap = ShrinkBitmap(imgFile.getAbsolutePath(), m_width/2, m_height/2);
             Log.d("*#DEBUG"," *#DEBUG Got it baby");
             mImage[index].loadGLTexture(gl, myBitmap);
             myBitmap.recycle();
@@ -123,6 +127,29 @@ public class NewRenderer implements GLWallpaperService.Renderer {
             Log.d("*#DEBUG","No such image exists");
         
 	}
+	Bitmap ShrinkBitmap(String file, int width, int height){
+		  
+	     BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+	        bmpFactoryOptions.inJustDecodeBounds = true;
+	        Bitmap bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
+	        
+	        int heightRatio = (int)Math.ceil(bmpFactoryOptions.outHeight/(float)height);
+	        int widthRatio = (int)Math.ceil(bmpFactoryOptions.outWidth/(float)width);
+	        
+	        if (heightRatio > 1 || widthRatio > 1)
+	        {
+	         if (heightRatio > widthRatio)
+	         {
+	          bmpFactoryOptions.inSampleSize = heightRatio;
+	         } else {
+	          bmpFactoryOptions.inSampleSize = widthRatio; 
+	         }
+	        }
+	        
+	        bmpFactoryOptions.inJustDecodeBounds = false;
+	        bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
+	     return bitmap;
+	    }
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		// Load the texture for the square

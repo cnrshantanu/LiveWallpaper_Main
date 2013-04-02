@@ -28,8 +28,8 @@ public class Square1 {
 	private static final int C_TTL_MAX = 8000;
 	private static final int C_TTL_MIN = 4000;
 	
-	private float m_imageW 		= 0;
-	private float m_imageH 		= 0;
+	private static float m_imageW 		= 40;
+	private static float m_imageH 		= 30;
 	private long  time_start 	= 0;
 	private int   ttl 			= 0;
 	private boolean m_rotate 	= false;
@@ -156,6 +156,10 @@ public class Square1 {
 	 * @param gl
 	 * @param context
 	 */
+	public static void setDimension(int width,int height){
+		m_imageW = width/2.f;
+		m_imageH = height/2.f;
+	}
 	public void loadGLTexture(GL10 gl, Resources resource, int id) {
 		// loading texture
 		Bitmap bitmap = BitmapFactory.decodeResource(resource,id);
@@ -261,6 +265,7 @@ public class Square1 {
 	}
 	public void release(GL10 gl){
 		gl.glDeleteTextures(1, textures, 0);
+		Log.d("DEBUG","released");
 	}
 	
 	public void update(){
