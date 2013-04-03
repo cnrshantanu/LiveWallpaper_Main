@@ -61,6 +61,18 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		for(int i=0;i<C_IMAGES_MAX;i++)
 		{
 			mImage[i].update();
+			int temp = mImage[i].getChangeMyTextureStatus();
+			if(temp != -1){
+				Log.d("DEBUG","Image changed id :"+i+"texture :"+temp);
+				image_index++;
+				if(file_name[image_index] == null)
+				{
+					image_index = 0;
+				}
+				
+				loadImage(gl,"/football/"+file_name[image_index],i,temp);
+				m_image_indexPrev++;
+			}
 		}
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
@@ -125,6 +137,23 @@ public class NewRenderer implements GLWallpaperService.Renderer {
             Bitmap myBitmap = ShrinkBitmap(imgFile.getAbsolutePath(), m_width/2, m_height/2);
             Log.d("*#DEBUG"," *#DEBUG Got it baby");
             mImage[index].loadGLTexture(gl, myBitmap);
+            myBitmap.recycle();
+        }
+        else                    
+            Log.d("*#DEBUG","No such image exists");
+        
+	}
+	
+	public void loadImage(GL10 gl,String file_path,int index,int tex_index){
+		
+		String path = Environment.getExternalStorageDirectory()+ file_path;
+		File imgFile = new File(path);
+        if(imgFile.exists())
+        {
+          //  Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            Bitmap myBitmap = ShrinkBitmap(imgFile.getAbsolutePath(), m_width/2, m_height/2);
+            Log.d("*#DEBUG"," *#DEBUG Got it baby");
+            mImage[index].loadGLTexture(gl, myBitmap,tex_index);
             myBitmap.recycle();
         }
         else                    

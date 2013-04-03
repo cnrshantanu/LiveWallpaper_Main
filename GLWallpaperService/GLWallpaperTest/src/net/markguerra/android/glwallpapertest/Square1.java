@@ -26,7 +26,7 @@ public class Square1 {
 	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
 	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
 	private static final int C_TTL_MAX = 8000;
-	private static final int C_TTL_MIN = 12000;
+	private static final int C_TTL_MIN = 2000;
 	
 	private static float m_imageW 		= 40;
 	private static float m_imageH 		= 30;
@@ -35,6 +35,7 @@ public class Square1 {
 	private boolean m_rotate 	= false;
 	private float revolution_angle;
 	private float revolution_velocity;
+	private int   m_changeTexture = -1;
 	
 			
 		
@@ -153,6 +154,40 @@ public class Square1 {
 		
 		bitmap.recycle();
 	}
+	
+	public void loadGLTexture(GL10 gl,Bitmap bitmap, int index) {
+		
+		//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
+			//	R.drawable.android1);
+
+		if(index != 0 || index != 1)
+			return;
+		// generate one texture pointer
+		//gl.glGenTextures(1, textures, 0);
+		
+		// ...and bind it to our array
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[index]);
+		
+		// create nearest filtered texture
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+
+		//Different possible texture parameters, e.g. GL10.GL_CLAMP_TO_EDGE
+//		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_REPEAT);
+//		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_REPEAT);
+		
+		// Use Android GLUtils to specify a two-dimensional texture image from our bitmap
+		
+		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
+		
+		m_imageW = bitmap.getWidth();
+		m_imageH = bitmap.getHeight();		
+		
+		// Clean up
+		
+		
+		bitmap.recycle();
+	}
 
 	public void loadGLTexture(GL10 gl,Bitmap bitmap1,Bitmap bitmap2) {
 		
@@ -185,6 +220,12 @@ public class Square1 {
 		
 		bitmap1.recycle();
 		bitmap2.recycle();
+	}
+	
+	public int getChangeMyTextureStatus(){
+		int temp = m_changeTexture;
+		m_changeTexture = -1;
+		return temp;
 	}
 
 	public void drawImage(GL10 gl){
@@ -266,10 +307,12 @@ public class Square1 {
 			{
 			//	revolution_angle=180;
 				m_rotate = false;
+				m_changeTexture = 0;
 			}
 			else if(revolution_angle == 360)
 			{
 				revolution_angle=0;
+				m_changeTexture = 1;
 				m_rotate = false;
 			} 
 			if(!m_rotate){
