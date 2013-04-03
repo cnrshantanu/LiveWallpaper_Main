@@ -39,34 +39,6 @@ public class Square1 {
 			
 		
 	private FloatBuffer vertexBuffer;	// buffer holding the vertices
-	/*
-	private float vertices[] = {
-			-1.0f, -1.0f,  0.0f,		// V1 - bottom left
-			-1.0f,  1.0f,  0.0f,		// V2 - top left
-			 1.0f, -1.0f,  0.0f,		// V3 - bottom right
-			 1.0f,  1.0f,  0.0f			// V4 - top right
-	};
-
-	private FloatBuffer textureBuffer;	// buffer holding the texture coordinates
-	private float texture[] = {    		
-			// Mapping coordinates for the vertices
-			0.0f, 1.0f,		// top left		(V2)
-			0.0f, 0.0f,		// bottom left	(V1)
-			1.0f, 1.0f,		// top right	(V4)
-			1.0f, 0.0f		// bottom right	(V3)
-	};
-	
-	*/
-	/*
-	private float vertices[] = {
-			-1.0f, -1.0f,  -1.0f,		// V1 - bottom left
-			-1.0f,  1.0f,  -1.0f,		// V2 - top left
-			 1.0f, -1.0f,  -1.0f,		// V3 - bottom right
-			 1.0f,  1.0f,  -1.0f,		// V4 - top right
-			
-			 
-	};
-	*/
 	private float vertices_frontface[] = {
 			-1.5f,  0.0f,  0.0f,		// V1 - bottom left
 			-1.5f,  2.5f,  0.0f,		// V2 - top left
@@ -102,26 +74,8 @@ public class Square1 {
 			1.0f, 1.0f,		// top right	(V4)
 			1.0f, 0.0f,		// bottom right	(V3)
 	};		
-/*		
-			0.0f, 1.0f,		// top left		(V2)
-			0.0f, 0.0f,		// bottom left	(V1)
-			1.0f, 1.0f,		// top right	(V4)
-			1.0f, 0.0f,		// bottom right	(V3)
-			
-			0.0f, 1.0f,		// top left		(V2)
-			0.0f, 0.0f,		// bottom left	(V1)
-			1.0f, 1.0f,		// top right	(V4)
-			1.0f, 0.0f,		// bottom right	(V3)
-			
-			0.0f, 1.0f,		// top left		(V2)
-			0.0f, 0.0f,		// bottom left	(V1)
-			1.0f, 1.0f,		// top right	(V4)
-			1.0f, 0.0f,		// bottom right	(V3)
-	};
-	
-*/	
 	/** The texture pointer */
-	private int[] textures = new int[1];
+	private int[] textures = new int[2];
 
 	public Square1() {
 		// a float has 4 bytes so we allocate for each coordinate 4 bytes
@@ -149,6 +103,7 @@ public class Square1 {
 		revolution_velocity	= 2.f;//C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
 		ttl = C_TTL_MIN + (int)(Math.random() * C_TTL_MAX);
 		//revolution_velocity /= 5 ;
+		
 	}
 
 	/**
@@ -199,6 +154,39 @@ public class Square1 {
 		bitmap.recycle();
 	}
 
+	public void loadGLTexture(GL10 gl,Bitmap bitmap1,Bitmap bitmap2) {
+		
+		//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
+			//	R.drawable.android1);
+
+		// generate one texture pointer
+		
+		gl.glGenTextures(2, textures, 0);
+		// ...and bind it to our array
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
+		
+		// create nearest filtered texture
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+
+		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap1, 0);
+
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[1]);		
+		// create nearest filtered texture
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap2, 0);
+
+		//m_imageW = bitmap.getWidth();
+		//m_imageH = bitmap.getHeight();		
+		
+		// Clean up
+		
+		
+		bitmap1.recycle();
+		bitmap2.recycle();
+	}
+
 	public void drawImage(GL10 gl){
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
@@ -213,11 +201,12 @@ public class Square1 {
 			gl.glRotatef(revolution_angle, 0, 1, 0);
 			gl.glTranslatef(1.5f/2,-2.5f/2f,0f);
 			
-
+			gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
 			vertexBuffer.put(vertices_frontface);
 			vertexBuffer.position(0);
 			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices_frontface.length / 3);
 			
+			gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[1]);
 			vertexBuffer.put(vertices_backface);
 			vertexBuffer.position(0);
 			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, vertices_frontface.length / 3);
@@ -242,8 +231,7 @@ public class Square1 {
 		// bind the previously generated texture
 		
 		///x-= 0.0002;
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
-		
+			
 		// Point to our buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
@@ -264,7 +252,7 @@ public class Square1 {
 		
 	}
 	public void release(GL10 gl){
-		gl.glDeleteTextures(1, textures, 0);
+		gl.glDeleteTextures(2, textures, 0);
 		Log.d("DEBUG","released");
 	}
 	

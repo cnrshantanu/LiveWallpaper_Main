@@ -127,6 +127,47 @@ public class NewRenderer implements GLWallpaperService.Renderer {
             Log.d("*#DEBUG","No such image exists");
         
 	}
+	
+	public void loadImage(GL10 gl,String file_path1,String file_path2,int index){
+		
+		String path = Environment.getExternalStorageDirectory()+ file_path1;
+		File imgFile = new File(path);
+		Bitmap myBitmap1,myBitmap2;
+        myBitmap1 = null;
+        myBitmap2 = null;    		
+		if(imgFile.exists())
+        {
+            myBitmap1 = ShrinkBitmap(imgFile.getAbsolutePath(), m_width/2, m_height/2);
+            Log.d("*#DEBUG"," *#DEBUG Got image"+file_path1);
+            //mImage[index].loadGLTexture(gl, myBitmap);
+            
+        }
+        else                    
+            Log.d("*#DEBUG",file_path1+" does not exists");
+        
+        
+        path = Environment.getExternalStorageDirectory()+ file_path2;
+		imgFile = new File(path);
+        
+        if(imgFile.exists())
+        {
+            myBitmap2 = ShrinkBitmap(imgFile.getAbsolutePath(), m_width/2, m_height/2);
+            Log.d("*#DEBUG"," *#DEBUG Got image"+file_path1);
+            //mImage[index].loadGLTexture(gl, myBitmap);
+        }
+        else                    
+            Log.d("*#DEBUG",file_path1+" does not exists");
+        
+        if(myBitmap1 != null && myBitmap2 != null)
+        	mImage[index].loadGLTexture(gl, myBitmap1,myBitmap2);
+      
+        if(myBitmap1 != null)
+        	myBitmap1.recycle();
+        if(myBitmap2 != null)
+        	myBitmap2.recycle();
+        
+	}
+	
 	Bitmap ShrinkBitmap(String file, int width, int height){
 		  
 	     BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
@@ -174,13 +215,13 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		m_init = true;
 	
 		int index = 0;
-		loadImage(gl,"/Hiromi/a.jpg",index);
+		loadImage(gl,"/Hiromi/a.jpg","/Hiromi/e.jpg",index);
 		index++;
-		loadImage(gl,"/Hiromi/b.jpg",index);
+		loadImage(gl,"/Hiromi/b.jpg","/Hiromi/f.jpg",index);
 		index++;
-		loadImage(gl,"/Hiromi/c.jpg",index);
+		loadImage(gl,"/Hiromi/c.jpg","/Hiromi/g.jpg",index);
 		index++;
-		loadImage(gl,"/Hiromi/d.jpg",index);
+		loadImage(gl,"/Hiromi/d.jpg","/Hiromi/h.jpg",index);
 		        
    	}
 	public void release() {
