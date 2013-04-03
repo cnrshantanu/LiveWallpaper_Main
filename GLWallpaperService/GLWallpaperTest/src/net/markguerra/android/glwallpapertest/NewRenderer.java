@@ -300,7 +300,28 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	@Override
 	public void onTouchEvent(MotionEvent event) {
 		// TODO Auto-generated method stub
-		Log.d("*#DEBUG","*#DEBUG we have touched down");
+		float xValue = event.getRawX();
+		float yValue = event.getRawY();
+		if (xValue <= m_width/2 && yValue <= m_height/2)
+		{
+			Log.d("Change","1st quadrant");
+		}
+		
+		else if (xValue <= m_width/2 && yValue >= m_height/2)
+		{
+			Log.d("Change","3rd quadrant");
+		}
+		
+		else if (xValue >= m_width/2 && yValue <= m_height/2)
+		{
+			Log.d("Change","2nd quadrant");
+		}
+		
+		else
+		{
+			Log.d("Change","4th quadrant");
+		}
+			
 		
 	}
 
