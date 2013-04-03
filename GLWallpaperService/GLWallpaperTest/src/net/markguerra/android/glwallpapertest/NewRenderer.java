@@ -51,6 +51,32 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			mImage[i] = new Square1();
 		}
 		reading_files();
+		m_image_indexPrev = image_index; 
+		for(int i = 0;i<C_IMAGES_MAX;i++)
+		{
+			if(file_name[image_index] == null)
+			{
+				if(file_name[image_index-1] != null)
+				{
+					mImage[i].m_filePath[0] = "/football/"+file_name[image_index-1];
+					mImage[i].m_filePath[1] = "/football/"+file_name[0];
+					image_index = 1;
+				}
+				else
+				{
+					image_index = 0;
+					mImage[i].m_filePath[0] = "/football/"+file_name[image_index];
+					mImage[i].m_filePath[1] = "/football/"+file_name[image_index+1];
+					image_index += 2;
+					continue;
+				}
+			}
+			
+			mImage[i].m_filePath[0] = "/football/"+file_name[image_index];
+			mImage[i].m_filePath[1] = "/football/"+file_name[image_index+1];
+			image_index+=2;
+			
+		}
 		
 		
     }
@@ -65,12 +91,14 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			if(temp != -1){
 				Log.d("DEBUG","Image changed id :"+i+"texture :"+temp);
 				image_index++;
+				if(image_index >= 100)
+					image_index = 0;
 				if(file_name[image_index] == null)
 				{
 					image_index = 0;
 				}
-				
-				loadImage(gl,"/football/"+file_name[image_index],i,temp);
+				mImage[i].m_filePath[temp] = "/football/"+file_name[image_index];
+				loadImage(gl,mImage[i].m_filePath[temp],i,temp);
 				m_image_indexPrev++;
 			}
 		}
@@ -272,37 +300,11 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		m_init = true;
 	
 		//int index = 0;
-		m_image_indexPrev = image_index; 
 		for(int i = 0;i<C_IMAGES_MAX;i++)
 		{
-			if(file_name[image_index] == null)
-			{
-				if(file_name[image_index-1] != null)
-				{
-					loadImage(gl,"/football/"+file_name[image_index-1],"/football/"+file_name[0],i);
-					image_index = 1;
-				}
-				else
-				{
-					image_index = 0;
-					loadImage(gl,"/football/"+file_name[image_index],"/football/"+file_name[image_index+1],i);
-					image_index += 2;
-					continue;
-				}
-			}
-			
-			loadImage(gl,"/football/"+file_name[image_index],"/football/"+file_name[image_index+1],i);
-			image_index+=2;
-			
+			loadImage(gl,mImage[i].m_filePath[0],mImage[i].m_filePath[1],i);
 		}
-		/*loadImage(gl,"/football/a.jpg","/football/e.jpg",index);
-		index++;
-		loadImage(gl,"/football/b.jpg","/football/f.jpg",index);
-		index++;
-		loadImage(gl,"/football/c.jpg","/football/g.jpg",index);
-		index++;
-		loadImage(gl,"/football/d.jpg","/football/h.jpg",index);*/
-		        
+				        
    	}
 	public void release() {
 		if(!m_init)
