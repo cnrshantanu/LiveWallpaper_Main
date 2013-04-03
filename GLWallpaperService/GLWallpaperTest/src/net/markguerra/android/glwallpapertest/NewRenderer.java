@@ -100,7 +100,9 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 				mImage[i].m_filePath[temp] = "/football/"+file_name[image_index];
 				loadImage(gl,mImage[i].m_filePath[temp],i,temp);
 				m_image_indexPrev++;
+				break;
 			}
+			
 		}
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
@@ -294,10 +296,10 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
 		
 		
-		if(m_init)
-			return;
+		//if(m_init)
+		 //return;
 		
-		m_init = true;
+		//m_init = true;
 	
 		//int index = 0;
 		for(int i = 0;i<C_IMAGES_MAX;i++)

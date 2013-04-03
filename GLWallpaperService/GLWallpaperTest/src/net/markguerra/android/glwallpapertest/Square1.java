@@ -26,7 +26,7 @@ public class Square1 {
 	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
 	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
 	private static final int C_TTL_MAX = 8000;
-	private static final int C_TTL_MIN = 2000;
+	private static final int C_TTL_MIN = 6000;
 	private static float m_imageW 		= 40;
 	private static float m_imageH 		= 30;
 	public String[] 	m_filePath 		= new String[2];
@@ -102,7 +102,7 @@ public class Square1 {
 		revolution_angle = 0;
 		time_start = System.currentTimeMillis();
 		
-		revolution_velocity	= 2.f;//C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
+		revolution_velocity	= 3.f;//C_REVOLUTION_VELOCITY_MIN 	+ (int)(Math.random()* C_REVOLUTION_VELOCITY_MAX);
 		ttl = C_TTL_MIN + (int)(Math.random() * C_TTL_MAX);
 		//revolution_velocity /= 5 ;
 		
