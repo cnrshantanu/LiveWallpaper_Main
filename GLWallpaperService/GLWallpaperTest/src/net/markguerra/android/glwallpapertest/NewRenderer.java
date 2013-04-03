@@ -215,13 +215,13 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		m_init = true;
 	
 		int index = 0;
-		loadImage(gl,"/Hiromi/a.jpg","/Hiromi/e.jpg",index);
+		loadImage(gl,"/football/a.jpg","/football/e.jpg",index);
 		index++;
-		loadImage(gl,"/Hiromi/b.jpg","/Hiromi/f.jpg",index);
+		loadImage(gl,"/football/b.jpg","/football/f.jpg",index);
 		index++;
-		loadImage(gl,"/Hiromi/c.jpg","/Hiromi/g.jpg",index);
+		loadImage(gl,"/football/c.jpg","/football/g.jpg",index);
 		index++;
-		loadImage(gl,"/Hiromi/d.jpg","/Hiromi/h.jpg",index);
+		loadImage(gl,"/football/d.jpg","/football/h.jpg",index);
 		        
    	}
 	public void release() {
