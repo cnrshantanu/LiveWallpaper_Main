@@ -160,7 +160,6 @@ public class Square1 {
 		
 		//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
 			//	R.drawable.android1);
-
 		if(index > 1 || index < 0)
 			return;
 		// generate one texture pointer

@@ -4,6 +4,7 @@
 package net.markguerra.android.glwallpapertest;
 
 import java.io.File;
+import java.util.concurrent.locks.Lock;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -80,7 +81,23 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		
 		
     }
-	
+	private void loadImageThroughThread(final String filePath,final int index,final int tex_index,final GL10 gl)
+	{
+		 new Thread(new Runnable() {
+			    public void run() {
+			        String path = Environment.getExternalStorageDirectory()+ filePath;
+					File imgFile = new File(path);
+			        if(imgFile.exists())
+			        {
+			          //  Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+			        	Bitmap b = ShrinkBitmap(imgFile.getAbsolutePath(), m_width/2, m_height/2);
+			        	NewRenderer:mImage[index].loadGLTexture(gl,b,tex_index);
+			        	Log.d("DEBUG", "image loaded through thread" + b.toString() + "string path" + filePath);
+			        	b.recycle();
+			        }
+			    }
+			  }).start();
+	}
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		// clear Screen and Depth Buffer
@@ -99,6 +116,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 				}
 				mImage[i].m_filePath[temp] = "/football/"+file_name[image_index];
 				loadImage(gl,mImage[i].m_filePath[temp],i,temp);
+				loadImageThroughThread(mImage[i].m_filePath[temp],i,temp,gl);
 				m_image_indexPrev++;
 				break;
 			}
@@ -190,6 +208,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
             Log.d("*#DEBUG","No such image exists");
         
 	}
+	
+
 	
 	public void loadImage(GL10 gl,String file_path1,String file_path2,int index){
 		
