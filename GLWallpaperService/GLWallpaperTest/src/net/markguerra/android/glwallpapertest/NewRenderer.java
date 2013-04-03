@@ -304,22 +304,27 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		float yValue = event.getRawY();
 		if (xValue <= m_width/2 && yValue <= m_height/2)
 		{
-			Log.d("Change","1st quadrant");
+			//Log.d("Change","1st quadrant");
+			mImage[0].startRotation();
 		}
 		
 		else if (xValue <= m_width/2 && yValue >= m_height/2)
 		{
-			Log.d("Change","3rd quadrant");
+			//Log.d("Change","3rd quadrant");
+			mImage[3].startRotation();
 		}
 		
 		else if (xValue >= m_width/2 && yValue <= m_height/2)
 		{
-			Log.d("Change","2nd quadrant");
+			//Log.d("Change","2nd quadrant");
+			mImage[1].startRotation();
 		}
 		
 		else
 		{
-			Log.d("Change","4th quadrant");
+			//Log.d("Change","4th quadrant");
+			mImage[2].startRotation();
+			
 		}
 			
 		

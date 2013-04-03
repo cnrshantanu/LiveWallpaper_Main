@@ -26,7 +26,7 @@ public class Square1 {
 	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
 	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
 	private static final int C_TTL_MAX = 8000;
-	private static final int C_TTL_MIN = 4000;
+	private static final int C_TTL_MIN = 12000;
 	
 	private static float m_imageW 		= 40;
 	private static float m_imageH 		= 30;
@@ -244,13 +244,12 @@ public class Square1 {
 		// Draw the vertices as triangle strip
 		drawImage(gl);
 		//Disable the client state before leaving
-		
-		
-		
-		
-		
-		
 	}
+	
+	public void startRotation(){
+		m_rotate = true;
+	}
+	
 	public void release(GL10 gl){
 		gl.glDeleteTextures(2, textures, 0);
 		Log.d("DEBUG","released");
