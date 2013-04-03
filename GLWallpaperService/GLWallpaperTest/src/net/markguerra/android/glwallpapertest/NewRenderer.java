@@ -19,6 +19,7 @@ import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.widget.Toast;
 
@@ -32,10 +33,11 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	private static final int 	C_FILE_NAME_MAX 	= 100;
 	private static Square1[]  	mImage		 		= new Square1[C_IMAGES_MAX];
 	private	static Boolean		m_init       		= false;
-	private int 				m_width 			= 30;
-	private int 				m_height 			= 40;
+	private int 				m_width 			= 320;
+	private int 				m_height 			= 180;
 	String[] 					file_name 			= new String[C_FILE_NAME_MAX];
 	private	int					image_index			= 0;
+	private	int					m_image_indexPrev	= 0;
 	private Resources 			resource;
 		
 	/** Constructor to set the handed over context */
@@ -241,6 +243,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		m_init = true;
 	
 		//int index = 0;
+		m_image_indexPrev = image_index; 
 		for(int i = 0;i<C_IMAGES_MAX;i++)
 		{
 			if(file_name[image_index] == null)
@@ -290,7 +293,15 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		{
 			mImage[i].release(gl);
 		}
+		image_index = m_image_indexPrev;
 		m_init = false;
+	}
+
+	@Override
+	public void onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		Log.d("*#DEBUG","*#DEBUG we have touched down");
+		
 	}
 
 }

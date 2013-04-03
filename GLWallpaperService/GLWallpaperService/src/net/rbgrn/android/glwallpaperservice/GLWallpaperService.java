@@ -108,6 +108,7 @@ public class GLWallpaperService extends WallpaperService {
 		@Override
 		 public void onTouchEvent(MotionEvent event) {
 			Log.d("DEBUG", "zara zara touch");
+			mGLThread.onTouchEvent(event);
 			super.onTouchEvent(event);
 		}
 
@@ -199,6 +200,7 @@ public class GLWallpaperService extends WallpaperService {
 
 	public interface Renderer extends GLSurfaceView.Renderer {
 		public void onSurfacePause(GL10 gl, int width, int height);
+		 public void onTouchEvent(MotionEvent event);
 	}
 }
 
@@ -736,6 +738,11 @@ class GLThread extends Thread {
 		}
 	}
 
+	public void onTouchEvent(MotionEvent event){
+		Log.d("*#DEBUG","*#TOUCH EVENT OCCURS");
+		mRenderer.onTouchEvent(event);
+	}
+	
 	public void surfaceDestroyed() {
 		Log.d("*#DEBUG","*#DEBUG LIB surface DESTROYED");
 		synchronized (sGLThreadManager) {
