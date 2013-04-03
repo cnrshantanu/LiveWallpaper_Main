@@ -16,8 +16,6 @@ public class GalleryActivity extends Activity {
 		//Instantiate OpenGL drawing surface and hold a reference
 		ViewGroup container = (ViewGroup)findViewById(R.id.container);
 		glView = new GLSurfaceView(this);
-		MyRenderer renderer = new MyRenderer();
-		GlRenderer renderer1 = new GlRenderer(this);
 		NewRenderer renderer2 = new NewRenderer(this.getResources());
 		glView.setRenderer(renderer2);
 
