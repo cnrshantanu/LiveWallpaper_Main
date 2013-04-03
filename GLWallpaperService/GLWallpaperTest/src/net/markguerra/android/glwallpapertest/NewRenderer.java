@@ -28,12 +28,14 @@ import android.widget.Toast;
  */
 public class NewRenderer implements GLWallpaperService.Renderer {
 
-	private static final int 	C_IMAGES_MAX = 4;
-	private static Square1[]  			mImage		 = new Square1[C_IMAGES_MAX];
-	private	static Boolean		m_init       = false;
-	private int m_width = 30;
-	private int m_height = 40;
-	//private Square1 		square;		// the square
+	private static final int 	C_IMAGES_MAX 		= 4;
+	private static final int 	C_FILE_NAME_MAX 	= 100;
+	private static Square1[]  	mImage		 		= new Square1[C_IMAGES_MAX];
+	private	static Boolean		m_init       		= false;
+	private int 				m_width 			= 30;
+	private int 				m_height 			= 40;
+	String[] 					file_name 			= new String[C_FILE_NAME_MAX];
+	private	int					image_index			= 0;
 	private Resources 			resource;
 		
 	/** Constructor to set the handed over context */
@@ -46,7 +48,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		{
 			mImage[i] = new Square1();
 		}
-		
+		reading_files();
 		
 		
     }
@@ -168,7 +170,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
         
 	}
 	
-	Bitmap ShrinkBitmap(String file, int width, int height){
+	private Bitmap ShrinkBitmap(String file, int width, int height){
 		  
 	     BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
 	        bmpFactoryOptions.inJustDecodeBounds = true;
@@ -191,6 +193,30 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	        bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
 	     return bitmap;
 	    }
+	
+	private void reading_files()
+	{
+		
+		int i = 0;
+		File sdCardRoot = Environment.getExternalStorageDirectory();
+		File yourDir = new File(sdCardRoot, "/football/");
+		for (File f : yourDir.listFiles()) 
+		{
+			if (f.isFile())
+			{
+				file_name[i] = f.getName();
+				i++;
+			}
+			if(i == C_FILE_NAME_MAX)
+				break;
+		}
+
+		/*for ( int j = 0; j<i; j++)
+		{
+		Log.d("*#DEBUG"," File "+j+" is "+ file_name[j]);
+		}*/
+	}
+	
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		// Load the texture for the square
@@ -214,14 +240,36 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		
 		m_init = true;
 	
-		int index = 0;
-		loadImage(gl,"/football/a.jpg","/football/e.jpg",index);
+		//int index = 0;
+		for(int i = 0;i<C_IMAGES_MAX;i++)
+		{
+			if(file_name[image_index] == null)
+			{
+				if(file_name[image_index-1] != null)
+				{
+					loadImage(gl,"/football/"+file_name[image_index-1],"/football/"+file_name[0],i);
+					image_index = 1;
+				}
+				else
+				{
+					image_index = 0;
+					loadImage(gl,"/football/"+file_name[image_index],"/football/"+file_name[image_index+1],i);
+					image_index += 2;
+					continue;
+				}
+			}
+			
+			loadImage(gl,"/football/"+file_name[image_index],"/football/"+file_name[image_index+1],i);
+			image_index+=2;
+			
+		}
+		/*loadImage(gl,"/football/a.jpg","/football/e.jpg",index);
 		index++;
 		loadImage(gl,"/football/b.jpg","/football/f.jpg",index);
 		index++;
 		loadImage(gl,"/football/c.jpg","/football/g.jpg",index);
 		index++;
-		loadImage(gl,"/football/d.jpg","/football/h.jpg",index);
+		loadImage(gl,"/football/d.jpg","/football/h.jpg",index);*/
 		        
    	}
 	public void release() {

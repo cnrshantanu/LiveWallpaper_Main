@@ -33,6 +33,7 @@ import net.rbgrn.android.glwallpaperservice.BaseConfigChooser.SimpleEGLConfigCho
 import android.opengl.GLSurfaceView;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 // Original code provided by Robert Green
@@ -102,6 +103,12 @@ public class GLWallpaperService extends WallpaperService {
 			Log.d(TAG, "onSurfaceDestroyed()");
 			mGLThread.surfaceDestroyed();
 			super.onSurfaceDestroyed(holder);
+		}
+		
+		@Override
+		 public void onTouchEvent(MotionEvent event) {
+			Log.d("DEBUG", "zara zara touch");
+			super.onTouchEvent(event);
 		}
 
 		/**

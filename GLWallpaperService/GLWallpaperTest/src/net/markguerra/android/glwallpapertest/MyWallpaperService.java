@@ -27,7 +27,7 @@ public class MyWallpaperService extends GLWallpaperService {
 			setRenderer(renderer);
 			setRenderMode(RENDERMODE_CONTINUOUSLY);
 		}
-		
+				
 		@Override
 		public void onSurfaceDestroyed(SurfaceHolder holder) {
 			//Log.d("*#DEBUG","*#DEBUG surface destroyed");
