@@ -7,6 +7,9 @@ import net.rbgrn.android.glwallpaperservice.*;
 // Original code provided by Robert Green
 // http://www.rbgrn.net/content/354-glsurfaceview-adapted-3d-live-wallpapers
 public class MyWallpaperService extends GLWallpaperService {
+	
+	public static final String SHARED_PREFS_NAME="cube2settings";
+	
 	public MyWallpaperService() {
 		super();
 	}

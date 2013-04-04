@@ -4,4 +4,7 @@
     <string name="app_name">Gallery Live Wallpaper</string>
     <string name="service_label">Gallery Live Wallpaper</string>
     <string name="description">Gallery app on wallpaper</string>
+    <string name="wall_settings">Settings</string>
+    <string name="TTL_title">Set TTL</string>
+    <string name="TTL_summary">Max time before image change</string>
 </resources>
