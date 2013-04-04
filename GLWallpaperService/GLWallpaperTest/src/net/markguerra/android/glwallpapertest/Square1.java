@@ -25,8 +25,8 @@ public class Square1 {
 	
 	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
 	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
-	private static final int C_TTL_MAX = 8000;
-	private static final int C_TTL_MIN = 6000;
+	public static int C_TTL_MAX = 8000;
+	private static int C_TTL_MIN = 1000;
 	private static float m_imageW 		= 40;
 	private static float m_imageH 		= 30;
 	public String[] 	m_filePath 		= new String[2];
@@ -38,8 +38,7 @@ public class Square1 {
 	private float revolution_velocity;
 	
 	
-			
-		
+	
 	private FloatBuffer vertexBuffer;	// buffer holding the vertices
 	private float vertices_frontface[] = {
 			-1.5f,  0.0f,  0.0f,		// V1 - bottom left
@@ -113,6 +112,9 @@ public class Square1 {
 	 * @param gl
 	 * @param context
 	 */
+	
+	
+	
 	public static void setDimension(int width,int height){
 		m_imageW = width/2.f;
 		m_imageH = height/2.f;

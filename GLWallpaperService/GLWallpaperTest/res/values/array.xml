@@ -1,13 +1,26 @@
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
-    <string-array name="cube2_shapenames">
-        <item>"Cube"</item>
-        <item>"Dodecahedron"</item>
-    </string-array>
-
-    <string-array name="cube2_shapeprefix">
-        <item>"cube"</item>
-        <item>"dodecahedron"</item>
-    </string-array>
-
-</resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="Ttl_values">
+   	<item>2</item>
+   	<item>4</item>
+   	<item>8</item>
+  </string-array>
+  
+  <string-array name="Ttl_description">
+   	<item>2 seconds</item>
+   	<item>4 seconds</item>
+   	<item>6 seconds</item>
+  </string-array>
+    
+  
+  <string-array name="wallpaper_folders">
+                <item>Wallpapers</item>
+                <item>Camera Photos</item>
+                <item>Downloads</item>
+        </string-array>
+        
+  
+  
+  
+  
+ </resources>

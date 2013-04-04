@@ -6,11 +6,12 @@ import net.rbgrn.android.glwallpaperservice.GLWallpaperService;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class LiveWallpaperSettings extends PreferenceActivity
     implements SharedPreferences.OnSharedPreferenceChangeListener {
-
+ 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -19,6 +20,8 @@ public class LiveWallpaperSettings extends PreferenceActivity
         addPreferencesFromResource(R.xml.glwallpapertest_setting);
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(
                 this);
+        
+        
     }
 
     @Override

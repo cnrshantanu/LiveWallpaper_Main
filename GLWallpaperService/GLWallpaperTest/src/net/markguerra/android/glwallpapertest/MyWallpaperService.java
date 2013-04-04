@@ -1,5 +1,7 @@
 package net.markguerra.android.glwallpapertest;
 
+import android.content.SharedPreferences;
+import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import net.rbgrn.android.glwallpaperservice.*;
@@ -18,17 +20,30 @@ public class MyWallpaperService extends GLWallpaperService {
 		return engine;
 	}
 
-	class MyEngine extends GLEngine {
+	
+	
+	class MyEngine extends GLEngine implements SharedPreferences.OnSharedPreferenceChangeListener{
 		//MyRenderer renderer;
-		NewRenderer renderer;
+		
+		private final Handler mHandler = new Handler();
+		private SharedPreferences mPrefs;
+		
+		private NewRenderer renderer;
 		public MyEngine() {
 			super();
 			// handle prefs, other initialization
 			//renderer = new MyRenderer();
+			
+			
+			
 			Log.d("*#DEBUG","*#DEBUG new renderer");
 			renderer = new NewRenderer(getResources());
 			setRenderer(renderer);
 			setRenderMode(RENDERMODE_CONTINUOUSLY);
+			
+			mPrefs = MyWallpaperService.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
+			mPrefs.registerOnSharedPreferenceChangeListener(this);
+			onSharedPreferenceChanged(mPrefs,null);
 		}
 				
 		@Override
@@ -51,6 +66,18 @@ public class MyWallpaperService extends GLWallpaperService {
 				renderer.release(); // assuming yours has this method - it should!
 			}
 			renderer = null;
+		}
+
+		@Override
+		public void onSharedPreferenceChanged(
+				SharedPreferences sharedPreferences, String key) {
+			// TODO Auto-generated method stub
+			
+			String ttl_chosen = mPrefs.getString("LiveWallpaper_TTL", "null");
+			Log.d("Debug","TTL Chosen is "+ttl_chosen);
+			if(ttl_chosen!="null")
+			renderer.setTTLMax(Integer.parseInt(ttl_chosen));
+			
 		}
 	}
 }

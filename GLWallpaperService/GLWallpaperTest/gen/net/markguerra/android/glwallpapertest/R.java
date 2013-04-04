@@ -9,8 +9,9 @@ package net.markguerra.android.glwallpapertest;
 
 public final class R {
     public static final class array {
-        public static final int cube2_shapenames=0x7f060000;
-        public static final int cube2_shapeprefix=0x7f060001;
+        public static final int Ttl_description=0x7f060001;
+        public static final int Ttl_values=0x7f060000;
+        public static final int wallpaper_folders=0x7f060002;
     }
     public static final class attr {
     }
