@@ -107,6 +107,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		// clear Screen and Depth Buffer
+		Log.d("DEBUG","DEBUG c ttl"+Square1.C_TTL_MAX);
 		for(int i=0;i<C_IMAGES_MAX;i++)
 		{
 			mImage[i].update();

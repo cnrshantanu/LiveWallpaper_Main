@@ -27,6 +27,8 @@ public class MyWallpaperService extends GLWallpaperService {
 		
 		private final Handler mHandler = new Handler();
 		private SharedPreferences mPrefs;
+		private int C_TTL_MAX = 2;
+		
 		
 		private NewRenderer renderer;
 		public MyEngine() {
@@ -54,11 +56,19 @@ public class MyWallpaperService extends GLWallpaperService {
 		}
 		
 		@Override
-		public void onVisibilityChanged(boolean visible) {
-			//Log.d("*#DEBUG","*#DEBUG surface destroyed");
+		public void onSurfaceCreated(SurfaceHolder holder) {
+			Log.d("*#DEBUG","*#DEBUG surface created in service");
+			renderer.setTTLMax(C_TTL_MAX);
+			super.onSurfaceCreated(holder);
 			//renderer.release();
-			super.onVisibilityChanged(visible);
 		}
+		@Override
+		public void onVisibilityChanged(boolean visible) {
+			Log.d("*#DEBUG","*#DEBUG surface resumed");
+			//renderer.release();
+			renderer.setTTLMax(C_TTL_MAX);
+			super.onVisibilityChanged(visible);
+		} 
 		
 		public void onDestroy() {
 			super.onDestroy();
@@ -76,7 +86,7 @@ public class MyWallpaperService extends GLWallpaperService {
 			String ttl_chosen = mPrefs.getString("LiveWallpaper_TTL", "null");
 			Log.d("Debug","TTL Chosen is "+ttl_chosen);
 			if(ttl_chosen!="null")
-			renderer.setTTLMax(Integer.parseInt(ttl_chosen));
+				C_TTL_MAX = Integer.parseInt(ttl_chosen);
 			
 		}
 	}
