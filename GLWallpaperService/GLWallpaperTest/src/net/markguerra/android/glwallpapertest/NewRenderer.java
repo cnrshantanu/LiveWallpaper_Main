@@ -85,6 +85,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	{
 		 new Thread(new Runnable() {
 			    public void run() {
+			    	Log.d("DEBUG","image loaded start");
 			        String path = Environment.getExternalStorageDirectory()+ filePath;
 					File imgFile = new File(path);
 			        if(imgFile.exists())
@@ -118,7 +119,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 				loadImage(gl,mImage[i].m_filePath[temp],i,temp);
 				loadImageThroughThread(mImage[i].m_filePath[temp],i,temp,gl);
 				m_image_indexPrev++;
-				break;
+				//break;
 			}
 			
 		}
@@ -319,7 +320,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		//if(m_init)
 		 //return;
 		
-		//m_init = true;
+		m_init = true;
 	
 		//int index = 0;
 		for(int i = 0;i<C_IMAGES_MAX;i++)
