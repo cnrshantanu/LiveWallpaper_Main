@@ -6,6 +6,7 @@ import net.rbgrn.android.glwallpaperservice.GLWallpaperService;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 
 public class LiveWallpaperSettings extends PreferenceActivity
     implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -34,5 +35,6 @@ public class LiveWallpaperSettings extends PreferenceActivity
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
             String key) {
+    	Log.d("DEBUG","DEBUG Listener called");
     }
 }

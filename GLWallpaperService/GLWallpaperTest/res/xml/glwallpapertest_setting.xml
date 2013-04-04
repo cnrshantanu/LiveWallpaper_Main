@@ -5,6 +5,8 @@
      <ListPreference
             android:key="LiveWallpaper_TTL"
             android:title="@string/TTL_title"
-            android:summary="@string/TTL_summary"/>
+            android:summary="@string/TTL_summary"
+            android:entries="@array/cube2_shapenames"
+            android:entryValues="@array/cube2_shapeprefix" />
 </PreferenceScreen>
 

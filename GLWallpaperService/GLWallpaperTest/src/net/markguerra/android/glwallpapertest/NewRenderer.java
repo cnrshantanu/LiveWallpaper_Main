@@ -93,7 +93,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			          //  Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 			        	Bitmap b = ShrinkBitmap(imgFile.getAbsolutePath(), m_width/2, m_height/2);
 			        	NewRenderer:mImage[index].loadGLTexture(gl,b,tex_index);
-			        	Log.d("DEBUG", "image loaded through thread" + b.toString() + "string path" + filePath);
+			        	Log.d("DEBUG", "DEBUG image loaded through thread" + b.toString() + "string path" + filePath);
 			        	b.recycle();
 			        }
 			    }

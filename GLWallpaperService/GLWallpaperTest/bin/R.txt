@@ -1,3 +1,5 @@
+int array cube2_shapenames 0x7f060000
+int array cube2_shapeprefix 0x7f060001
 int drawable a1 0x7f020000
 int drawable android 0x7f020001
 int drawable android1 0x7f020002
