@@ -22,6 +22,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.widget.SlidingDrawer;
 import android.widget.Toast;
 
 /**
@@ -40,6 +41,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	private	int					image_index			= 0;
 	private	int					m_image_indexPrev	= 0;
 	private Resources 			resource;
+	private LoadfromSDCard		m_loader = new LoadfromSDCard();
 		
 	/** Constructor to set the handed over context */
 	public NewRenderer(Resources r){//Context context) {
@@ -52,6 +54,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			mImage[i] = new Square1();
 		}
 		reading_files();
+		//m_loader.reScanDirectory();
 		m_image_indexPrev = image_index; 
 		for(int i = 0;i<C_IMAGES_MAX;i++)
 		{
@@ -100,6 +103,14 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			        	NewRenderer:mImage[index].loadGLTexture(gl,b,tex_index);
 			        	Log.d("DEBUG", "DEBUG image loaded through thread" + b.toString() + "string path" + filePath);
 			        	b.recycle();
+			        }
+			        try{
+			        	
+			        	Thread.sleep(50);
+			        	Log.d("DEBUG","Thread slept");
+			        }
+			        catch(Exception e){
+			        	Log.d("DEBUG","Cant make thread sleep sing a lullaby");
 			        }
 			    }
 			  }).start();
