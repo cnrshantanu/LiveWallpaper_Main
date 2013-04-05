@@ -1,3 +1,4 @@
+int array Folder_description 0x7f060003
 int array Ttl_description 0x7f060001
 int array Ttl_values 0x7f060000
 int array wallpaper_folders 0x7f060002
@@ -6,6 +7,7 @@ int drawable android 0x7f020001
 int drawable android1 0x7f020002
 int drawable android2 0x7f020003
 int drawable icon 0x7f020004
+int id path 0x7f070000
 int layout main 0x7f030000
 int string TTL_summary 0x7f050006
 int string TTL_title 0x7f050005

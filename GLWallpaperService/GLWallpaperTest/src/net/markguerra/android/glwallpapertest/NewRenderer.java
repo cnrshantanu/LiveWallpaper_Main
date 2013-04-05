@@ -38,9 +38,11 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	private int 				m_width 			= 320;
 	private int 				m_height 			= 180;
 	String[] 					file_name 			= new String[C_FILE_NAME_MAX];
+	public String[] 			folder_name 		= new String[C_FILE_NAME_MAX];
 	private	int					image_index			= 0;
 	private	int					m_image_indexPrev	= 0;
 	private Resources 			resource;
+	private  static String 		sourceFolder		= new String();
 	private LoadfromSDCard		m_loader = new LoadfromSDCard();
 		
 	/** Constructor to set the handed over context */
@@ -53,36 +55,50 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		{
 			mImage[i] = new Square1();
 		}
-		reading_files();
+		
 		//m_loader.reScanDirectory();
-		m_image_indexPrev = image_index; 
+		m_image_indexPrev = image_index;
+		Log.d("Debug","Folder Selected "+sourceFolder);
+		reading_files(sourceFolder);
+		
 		for(int i = 0;i<C_IMAGES_MAX;i++)
 		{
 			if(file_name[image_index] == null)
 			{
 				if(file_name[image_index-1] != null)
 				{
-					mImage[i].m_filePath[0] = "/football/"+file_name[image_index-1];
-					mImage[i].m_filePath[1] = "/football/"+file_name[0];
+					mImage[i].m_filePath[0] = sourceFolder+file_name[image_index-1];
+					mImage[i].m_filePath[1] = sourceFolder+file_name[0];
+					//mImage[i].m_filePath[0] = "/football/"+file_name[image_index-1];
+					//mImage[i].m_filePath[1] = "/football/"+file_name[0];
 					image_index = 1;
 				}
 				else
 				{
 					image_index = 0;
-					mImage[i].m_filePath[0] = "/football/"+file_name[image_index];
-					mImage[i].m_filePath[1] = "/football/"+file_name[image_index+1];
+					mImage[i].m_filePath[0] = sourceFolder+file_name[image_index];
+					mImage[i].m_filePath[1] = sourceFolder+file_name[image_index+1];
+					//mImage[i].m_filePath[0] = "/football/"+file_name[image_index];
+					//mImage[i].m_filePath[1] = "/football/"+file_name[image_index+1];
 					image_index += 2;
 					continue;
 				}
 			}
 			
-			mImage[i].m_filePath[0] = "/football/"+file_name[image_index];
-			mImage[i].m_filePath[1] = "/football/"+file_name[image_index+1];
+			mImage[i].m_filePath[0] = sourceFolder+file_name[image_index];
+			mImage[i].m_filePath[1] = sourceFolder+file_name[image_index+1];
+			//mImage[i].m_filePath[0] = "/football/"+file_name[image_index];
+			//mImage[i].m_filePath[1] = "/football/"+file_name[image_index+1];
 			image_index+=2;
 			
 		}
 		
 		
+	}
+	public void setSourceFolder(String chosenFolder)
+	{
+		sourceFolder = chosenFolder;
+		reading_files(sourceFolder);
 	}
 	
 	public void setTTLMax(int value)
@@ -132,7 +148,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 				{
 					image_index = 0;
 				}
-				mImage[i].m_filePath[temp] = "/football/"+file_name[image_index];
+				mImage[i].m_filePath[temp] = sourceFolder+file_name[image_index];
+				//mImage[i].m_filePath[temp] = "/football/"+file_name[image_index];
 				loadImage(gl,mImage[i].m_filePath[temp],i,temp);
 				loadImageThroughThread(mImage[i].m_filePath[temp],i,temp,gl);
 				m_image_indexPrev++;
@@ -293,12 +310,35 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	     return bitmap;
 	    }
 	
-	private void reading_files()
+	
+	private void listingFolders()
+	{
+		int i = 0;
+		File sdCardRoot = Environment.getExternalStorageDirectory();
+		File yourDir = new File(sdCardRoot, "/sdcard-ext/");
+		for (File f : yourDir.listFiles()) 
+		{
+			if (f.isDirectory())
+			{
+				folder_name[i] = f.getName();
+				i++;
+			}
+			//if(i == C_FILE_NAME_MAX)
+				//break;
+		}
+		
+		for ( int j = 0; j<i; j++)
+		{
+		Log.d("*#Saugat"," File "+j+" is "+ folder_name[j]);
+		}	
+	}
+	private void reading_files(String folder)
 	{
 		
 		int i = 0;
 		File sdCardRoot = Environment.getExternalStorageDirectory();
-		File yourDir = new File(sdCardRoot, "/football/");
+		File yourDir = new File(sdCardRoot, folder);
+		Log.d("Debug"," Folder being read is "+folder);
 		for (File f : yourDir.listFiles()) 
 		{
 			if (f.isFile())
@@ -315,6 +355,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		Log.d("*#DEBUG"," File "+j+" is "+ file_name[j]);
 		}*/
 	}
+	
 	
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {

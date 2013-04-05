@@ -28,6 +28,7 @@ public class MyWallpaperService extends GLWallpaperService {
 		private final Handler mHandler = new Handler();
 		private SharedPreferences mPrefs;
 		private int C_TTL_MAX = 2;
+		private String imagePath;
 		
 		
 		private NewRenderer renderer;
@@ -59,6 +60,7 @@ public class MyWallpaperService extends GLWallpaperService {
 		public void onSurfaceCreated(SurfaceHolder holder) {
 			Log.d("*#DEBUG","*#DEBUG surface created in service");
 			renderer.setTTLMax(C_TTL_MAX);
+			renderer.setSourceFolder(imagePath);
 			super.onSurfaceCreated(holder);
 			//renderer.release();
 		}
@@ -67,6 +69,7 @@ public class MyWallpaperService extends GLWallpaperService {
 			Log.d("*#DEBUG","*#DEBUG surface resumed");
 			//renderer.release();
 			renderer.setTTLMax(C_TTL_MAX);
+			renderer.setSourceFolder(imagePath);
 			super.onVisibilityChanged(visible);
 		} 
 		
@@ -82,11 +85,20 @@ public class MyWallpaperService extends GLWallpaperService {
 		public void onSharedPreferenceChanged(
 				SharedPreferences sharedPreferences, String key) {
 			// TODO Auto-generated method stub
-			
-			String ttl_chosen = mPrefs.getString("LiveWallpaper_TTL", "null");
-			Log.d("Debug","TTL Chosen is "+ttl_chosen);
-			if(ttl_chosen!="null")
-				C_TTL_MAX = Integer.parseInt(ttl_chosen);
+						if(key=="LiveWallpaper_TTL")
+						{
+							String ttl_chosen = mPrefs.getString("LiveWallpaper_TTL", "null");
+							if(ttl_chosen!="null")
+								C_TTL_MAX = Integer.parseInt(ttl_chosen);
+								//renderer.setTTLMax(Integer.parseInt(ttl_chosen));
+						}
+						//path = mPrefs.getString("path", "/sdcard/DCIM/");
+						//public void listFolder(final )
+						else //if(key=="Folderpath")
+						{
+							imagePath = mPrefs.getString("Folderpath","/football/");
+							Log.d("Debug","Folder Chosen is "+imagePath);
+						}
 			
 		}
 	}

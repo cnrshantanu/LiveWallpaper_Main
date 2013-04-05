@@ -14,10 +14,14 @@
     
   
   <string-array name="wallpaper_folders">
-                <item>Wallpapers</item>
-                <item>Camera Photos</item>
-                <item>Downloads</item>
+                <item>"/football/"</item>
+                <item>"/Comics/"</item>
         </string-array>
+        
+  <string-array name= "Folder_description">
+      <item>Football</item>
+      <item>Comics</item>
+  </string-array>
         
   
   

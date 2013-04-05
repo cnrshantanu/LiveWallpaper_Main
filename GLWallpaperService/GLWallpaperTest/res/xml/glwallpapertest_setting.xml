@@ -8,5 +8,16 @@
             android:summary="@string/TTL_summary"
             android:entries="@array/Ttl_description"
             android:entryValues="@array/Ttl_values" />
+     
+     <ListPreference 
+         		android:key="Folderpath" 
+         		android:title="Folder"
+                android:id="@+id/path"
+                android:summary="The folder containing images" 
+                android:entries="@array/Folder_description"
+                android:entryValues="@array/wallpaper_folders"
+                android:defaultValue="/football/"/>
+     			     
+     
 </PreferenceScreen>
 

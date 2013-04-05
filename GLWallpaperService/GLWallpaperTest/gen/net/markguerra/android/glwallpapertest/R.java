@@ -9,6 +9,7 @@ package net.markguerra.android.glwallpapertest;
 
 public final class R {
     public static final class array {
+        public static final int Folder_description=0x7f060003;
         public static final int Ttl_description=0x7f060001;
         public static final int Ttl_values=0x7f060000;
         public static final int wallpaper_folders=0x7f060002;
@@ -21,6 +22,9 @@ public final class R {
         public static final int android1=0x7f020002;
         public static final int android2=0x7f020003;
         public static final int icon=0x7f020004;
+    }
+    public static final class id {
+        public static final int path=0x7f070000;
     }
     public static final class layout {
         public static final int main=0x7f030000;
