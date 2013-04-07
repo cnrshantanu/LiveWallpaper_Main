@@ -1,4 +1,4 @@
-aLiveWallpaper_Main
+LiveWallpaper_Main
 Wallpaper for controlling facebook pictures
 
 INFORMATION - <BR>
@@ -24,4 +24,4 @@ Currently on install a gallery application is also installed. This needs to be r
 ***************** PEACE ***************************************************
 
 
-Hello
+
