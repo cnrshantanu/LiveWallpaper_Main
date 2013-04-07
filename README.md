@@ -1,4 +1,4 @@
-LiveWallpaper_Main
+aLiveWallpaper_Main
 Wallpaper for controlling facebook pictures
 
 INFORMATION - <BR>

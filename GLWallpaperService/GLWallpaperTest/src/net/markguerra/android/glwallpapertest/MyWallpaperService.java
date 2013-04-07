@@ -1,10 +1,10 @@
 package net.markguerra.android.glwallpapertest;
 
+import net.rbgrn.android.glwallpaperservice.GLWallpaperService;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import net.rbgrn.android.glwallpaperservice.*;
 
 // Original code provided by Robert Green
 // http://www.rbgrn.net/content/354-glsurfaceview-adapted-3d-live-wallpapers
