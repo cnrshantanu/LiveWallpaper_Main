@@ -85,9 +85,13 @@ public class MyWallpaperService extends GLWallpaperService {
 		public void onSharedPreferenceChanged(
 				SharedPreferences sharedPreferences, String key) {
 			// TODO Auto-generated method stub
-						if(key=="LiveWallpaper_TTL")
+				Log.d("DEBUG","TTL key "+key);
+				
+						if("LiveWallpaper_TTL".equals(key))
 						{
+							
 							String ttl_chosen = mPrefs.getString("LiveWallpaper_TTL", "null");
+							Log.d("DEBUG","INSIDE TTL"+ttl_chosen);
 							if(ttl_chosen!="null")
 								C_TTL_MAX = Integer.parseInt(ttl_chosen);
 							
@@ -96,7 +100,7 @@ public class MyWallpaperService extends GLWallpaperService {
 						}
 						//path = mPrefs.getString("path", "/sdcard/DCIM/");
 						//public void listFolder(final )
-						else //if(key=="Folderpath")
+						else if("Folderpath".equals(key))
 						{
 							imagePath = mPrefs.getString("Folderpath","/football/");
 							Log.d("Debug","Folder Chosen is "+imagePath);
