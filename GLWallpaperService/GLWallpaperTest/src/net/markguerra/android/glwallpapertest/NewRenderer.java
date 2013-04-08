@@ -104,6 +104,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	public void setTTLMax(int value)
 	{
 		Square1.C_TTL_MAX = value*1000;
+		Log.d("DEBUG","DEBUG c ttl is "+Square1.C_TTL_MAX);
 	}
 	private void loadImageThroughThread(final String filePath,final int index,final int tex_index,final GL10 gl)
 	{
@@ -134,7 +135,6 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		// clear Screen and Depth Buffer
-		Log.d("DEBUG","DEBUG c ttl"+Square1.C_TTL_MAX);
 		for(int i=0;i<C_IMAGES_MAX;i++)
 		{
 			mImage[i].update();

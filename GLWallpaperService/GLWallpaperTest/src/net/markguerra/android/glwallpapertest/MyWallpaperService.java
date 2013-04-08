@@ -90,6 +90,8 @@ public class MyWallpaperService extends GLWallpaperService {
 							String ttl_chosen = mPrefs.getString("LiveWallpaper_TTL", "null");
 							if(ttl_chosen!="null")
 								C_TTL_MAX = Integer.parseInt(ttl_chosen);
+							
+							Log.d("DEBUG","TTL GOT "+ttl_chosen+" C_TTL max "+C_TTL_MAX);
 								//renderer.setTTLMax(Integer.parseInt(ttl_chosen));
 						}
 						//path = mPrefs.getString("path", "/sdcard/DCIM/");

@@ -2,14 +2,20 @@
 <resources>
   <string-array name="Ttl_values">
    	<item>2</item>
-   	<item>4</item>
    	<item>8</item>
+   	<item>20</item>
+   	<item>45</item>
+   	<item>60</item>
+   	<item>120</item>
   </string-array>
   
   <string-array name="Ttl_description">
    	<item>2 seconds</item>
-   	<item>4 seconds</item>
-   	<item>6 seconds</item>
+   	<item>8 seconds</item>
+   	<item>20 seconds</item>
+   	<item>45 seconds</item>
+   	<item>60 seconds</item>
+   	<item>120 seconds</item>
   </string-array>
     
   
