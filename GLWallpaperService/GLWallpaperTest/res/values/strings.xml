@@ -9,8 +9,7 @@
     <string name="TTL_summary">Max time before image change</string>
 	
 	
-	<string name="app_name">NotePad</string>
-    <string name="live_folder_name">Notes</string>
+	<string name="live_folder_name">Notes</string>
 
     <string name="title_edit_title">Note title:</string>
     <string name="title_create">New note</string>
@@ -36,3 +35,4 @@
     <string name="nothing_to_save">There is nothing to save</string>
 	
 </resources>
+ 
