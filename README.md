@@ -23,5 +23,5 @@ Currently on install a gallery application is also installed. This needs to be r
 
 ***************** PEACE ***************************************************
 
-
-Private repo
+Saugat's branch - all changes to the code you do should be added to this branch <BR>
+I shall add it according to convenience
