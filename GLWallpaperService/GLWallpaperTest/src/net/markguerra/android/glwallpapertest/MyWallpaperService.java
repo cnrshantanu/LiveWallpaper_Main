@@ -28,7 +28,7 @@ public class MyWallpaperService extends GLWallpaperService {
 		private final Handler mHandler = new Handler();
 		private SharedPreferences mPrefs;
 		private int C_TTL_MAX = 2;
-		private String imagePath;
+		private String imagePath = "/football/";
 		
 		
 		private NewRenderer renderer;
