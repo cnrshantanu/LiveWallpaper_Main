@@ -34,7 +34,8 @@
             <grant-uri-permission android:pathPattern=".*" />
         </provider>
 		
-		<activity android:name="NotesList" android:label="@string/title_notes_list">
+		<activity  
+		    android:name="NotesList" android:label="@string/title_notes_list">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -74,7 +75,7 @@
                  the current contents of the clipboard. -->
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
-                <action android:name="android.intent.action.PASTE" />
+                <action android:name="android.intent.action.PASTE" /> 
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.google.note" />
             </intent-filter>

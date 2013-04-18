@@ -155,6 +155,7 @@ public class NotesList extends ListActivity {
         // Inflate menu from XML resource
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.list_options_menu, menu);
+        
 
         // Generate any additional actions that can be performed on the
         // overall list.  In a normal install, there are no additional
