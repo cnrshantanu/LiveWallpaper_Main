@@ -22,6 +22,7 @@ import net.markguerra.android.glwallpapertest.R.id;
 import net.markguerra.android.glwallpapertest.R.layout;
 import net.markguerra.android.glwallpapertest.R.menu;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.ClipboardManager;
 import android.content.ClipData;
@@ -29,7 +30,9 @@ import android.content.ComponentName;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -83,6 +86,14 @@ public class NotesList extends ListActivity {
          * was started when the intent filter matched a MAIN action. We should use the default
          * provider URI.
          */
+        
+        // TITLE BAR UI CHANGE
+        
+        Resources r =  getResources();
+        Drawable tileGraphics =  r.getDrawable(R.drawable.gradient_header);
+        ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(tileGraphics);
+        
         // Gets the intent that started this Activity.
         Intent intent = getIntent();
 

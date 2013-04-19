@@ -35,6 +35,7 @@ public final class R {
         public static final int ic_menu_save=0x7f020006;
         public static final int icon=0x7f020007;
         public static final int live_folder_notes=0x7f020008;
+        public static final int wood=0x7f020009;
     }
     public static final class id {
         public static final int context_copy=0x7f0a0008;

@@ -16,6 +16,7 @@ int drawable ic_menu_revert 0x7f020005
 int drawable ic_menu_save 0x7f020006
 int drawable icon 0x7f020007
 int drawable live_folder_notes 0x7f020008
+int drawable wood 0x7f020009
 int id context_copy 0x7f0a0008
 int id context_delete 0x7f0a0009
 int id context_open 0x7f0a0007

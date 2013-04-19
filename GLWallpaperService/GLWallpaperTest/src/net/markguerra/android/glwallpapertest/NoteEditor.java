@@ -190,9 +190,7 @@ public class NoteEditor extends Activity {
          * caller.
          */
         final Intent intent = getIntent();
-        Resources r =  getResources();
         
-        Drawable tileGraphics =  r.getDrawable(R.drawable.gradient_header);
         
         /*
          *  Sets up for the edit, based on the action specified for the incoming Intent.
@@ -201,7 +199,8 @@ public class NoteEditor extends Activity {
         // Gets the action that triggered the intent filter for this Activity
         final String action = intent.getAction();
         
-        
+        Resources r =  getResources();
+        Drawable tileGraphics =  r.getDrawable(R.drawable.gradient_header);
         ActionBar actionBar = getActionBar();
         actionBar.setBackgroundDrawable(tileGraphics);
         // For an edit action:
