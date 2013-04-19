@@ -17,6 +17,10 @@
 package net.markguerra.android.glwallpapertest;
 
 import net.markguerra.android.glwallpapertest.NotePad;
+import net.markguerra.android.glwallpapertest.R;
+import net.markguerra.android.glwallpapertest.R.id;
+import net.markguerra.android.glwallpapertest.R.layout;
+import net.markguerra.android.glwallpapertest.R.menu;
 
 import android.app.ListActivity;
 import android.content.ClipboardManager;

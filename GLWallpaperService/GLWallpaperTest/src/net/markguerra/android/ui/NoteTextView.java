@@ -1,5 +1,8 @@
-package net.markguerra.android.glwallpapertest;
+package net.markguerra.android.ui;
 
+import net.markguerra.android.glwallpapertest.R;
+import net.markguerra.android.glwallpapertest.R.color;
+import net.markguerra.android.glwallpapertest.R.dimen;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;

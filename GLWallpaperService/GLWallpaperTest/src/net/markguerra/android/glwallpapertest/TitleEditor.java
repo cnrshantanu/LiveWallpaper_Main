@@ -16,6 +16,9 @@
 
 package net.markguerra.android.glwallpapertest;
 
+import net.markguerra.android.glwallpapertest.R;
+import net.markguerra.android.glwallpapertest.R.id;
+import net.markguerra.android.glwallpapertest.R.layout;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;

@@ -17,6 +17,9 @@
 package net.markguerra.android.glwallpapertest;
 
 import net.markguerra.android.glwallpapertest.NotePad;
+import net.markguerra.android.glwallpapertest.R;
+import net.markguerra.android.glwallpapertest.R.drawable;
+import net.markguerra.android.glwallpapertest.R.string;
 
 import android.app.Activity;
 import android.content.Intent;
