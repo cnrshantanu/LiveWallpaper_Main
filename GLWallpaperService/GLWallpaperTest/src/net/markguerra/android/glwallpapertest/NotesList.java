@@ -17,6 +17,10 @@
 package net.markguerra.android.glwallpapertest;
 
 import net.markguerra.android.glwallpapertest.NotePad;
+import net.markguerra.android.glwallpapertest.R;
+import net.markguerra.android.glwallpapertest.R.id;
+import net.markguerra.android.glwallpapertest.R.layout;
+import net.markguerra.android.glwallpapertest.R.menu;
 
 import android.app.ListActivity;
 import android.content.ClipboardManager;
@@ -155,6 +159,7 @@ public class NotesList extends ListActivity {
         // Inflate menu from XML resource
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.list_options_menu, menu);
+        
 
         // Generate any additional actions that can be performed on the
         // overall list.  In a normal install, there are no additional

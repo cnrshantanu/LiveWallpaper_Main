@@ -103,7 +103,7 @@ public class MyWallpaperService extends GLWallpaperService {
 						else if("Folderpath".equals(key))
 						{
 							imagePath = mPrefs.getString("Folderpath","/football/");
-							Log.d("Debug","Folder Chosen is "+imagePath);
+							Log.d("Debug","Folder Chosen is /"+imagePath+"/");
 						}
 			
 		}

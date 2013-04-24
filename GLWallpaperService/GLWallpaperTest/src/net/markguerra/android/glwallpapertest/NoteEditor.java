@@ -16,6 +16,14 @@
 
 package net.markguerra.android.glwallpapertest;
 
+import net.markguerra.android.glwallpapertest.R;
+import net.markguerra.android.glwallpapertest.R.color;
+import net.markguerra.android.glwallpapertest.R.dimen;
+import net.markguerra.android.glwallpapertest.R.id;
+import net.markguerra.android.glwallpapertest.R.layout;
+import net.markguerra.android.glwallpapertest.R.menu;
+import net.markguerra.android.glwallpapertest.R.string;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -29,6 +37,7 @@ import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -77,13 +86,18 @@ public class NoteEditor extends Activity {
     private Cursor mCursor;
     private EditText mText;
     private String mOriginalContent;
-
-    /**
+    
+     /**
      * Defines a custom EditText View that draws lines between each line of text that is displayed.
      */
     public static class LinedEditText extends EditText {
         private Rect mRect;
         private Paint mPaint;
+        // for canvas edtor painting
+        private Paint marginPaint;
+    	private Paint linePaint;
+    	private int paperColor;
+    	private float margin;
 
         // This constructor is used by LayoutInflater
         public LinedEditText(Context context, AttributeSet attrs) {
@@ -94,7 +108,24 @@ public class NoteEditor extends Activity {
             mPaint = new Paint();
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setColor(0x800000FF);
+            init();
         }
+        
+        private void init(){
+    	  	
+    	  	// Get a reference to our resource table.
+    	    Resources myResources = getResources();
+
+    	    // Create the paint brushes we will use in the onDraw method.
+    	    marginPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    	    marginPaint.setColor(myResources.getColor(R.color.notepad_margin));
+    	    linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    	    linePaint.setColor(myResources.getColor(R.color.notepad_lines));
+
+    	    // Get the paper background color and the margin width.
+    	    paperColor = myResources.getColor(R.color.notepad_paper);
+    	    margin = myResources.getDimension(R.dimen.notepad_margin);
+      }
 
         /**
          * This is called to draw the LinedEditText object
@@ -110,8 +141,7 @@ public class NoteEditor extends Activity {
             Rect r = mRect;
             Paint paint = mPaint;
 
-            /*
-             * Draws one line in the rectangle for every line of text in the EditText
+            /*             * Draws one line in the rectangle for every line of text in the EditText
              */
             for (int i = 0; i < count; i++) {
 
@@ -123,11 +153,27 @@ public class NoteEditor extends Activity {
                  * at a vertical position one dip below the baseline, using the "paint" object
                  * for details.
                  */
-                canvas.drawLine(r.left, baseline + 1, r.right, baseline + 1, paint);
+                canvas.drawLine(r.left, baseline + 1, r.right, baseline + 1, marginPaint);
             }
 
             // Finishes up by calling the parent method
+            
+            // Draw ruled lines
+            canvas.drawLine(0, 0, 0, getMeasuredHeight(), linePaint);
+            canvas.drawLine(0, getMeasuredHeight(),
+                               getMeasuredWidth(), getMeasuredHeight(),
+                               linePaint);
+
+            // Draw margin
+            canvas.drawLine(margin, 0, margin, getMeasuredHeight(), marginPaint);
+
+            // Move the text across from the margin
+            canvas.save();
+            canvas.translate(margin, 0);
+
+            // Use the TextView to render the text
             super.onDraw(canvas);
+            canvas.restore();
         }
     }
 
@@ -144,14 +190,20 @@ public class NoteEditor extends Activity {
          * caller.
          */
         final Intent intent = getIntent();
-
+        Resources r =  getResources();
+        
+        Drawable tileGraphics =  r.getDrawable(R.drawable.gradient_header);
+        
         /*
          *  Sets up for the edit, based on the action specified for the incoming Intent.
          */
 
         // Gets the action that triggered the intent filter for this Activity
         final String action = intent.getAction();
-
+        
+        
+        ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(tileGraphics);
         // For an edit action:
         if (Intent.ACTION_EDIT.equals(action)) {
 

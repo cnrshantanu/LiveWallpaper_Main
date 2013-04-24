@@ -16,7 +16,7 @@
                 android:summary="The folder containing images" 
                 android:entries="@array/Folder_description"
                 android:entryValues="@array/wallpaper_folders"
-                android:defaultValue="/football/"/>
+                />
      			     
      
 </PreferenceScreen>

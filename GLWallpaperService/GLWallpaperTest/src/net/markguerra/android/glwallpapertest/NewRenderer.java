@@ -97,7 +97,12 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	}
 	public void setSourceFolder(String chosenFolder)
 	{
-		sourceFolder = chosenFolder;
+		
+		sourceFolder =  chosenFolder;
+		//String temp = chosenFolder.substring(chosenFolder.lastIndexOf('/'));
+		//temp = temp + '/';
+		//Log.d("Debug", "Latest build, Folder chosen is " + temp);
+		//sourceFolder = temp;
 		reading_files(sourceFolder);
 	}
 	

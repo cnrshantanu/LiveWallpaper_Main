@@ -14,7 +14,8 @@
      limitations under the License.
 -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<net.markguerra.android.ui.NoteTextView
+     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
@@ -22,4 +23,8 @@
     android:gravity="center_vertical"
     android:paddingLeft="5dip"
     android:singleLine="true"
+    android:padding="10dp"
+    android:scrollbars="vertical"
+    android:textColor="@color/notepad_text"
+    android:fadingEdge="vertical"
 />
