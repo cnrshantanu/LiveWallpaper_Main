@@ -46,10 +46,11 @@ public class NoteTextView extends TextView {
 
     // Draw margin
     canvas.drawLine(margin, 0, margin, getMeasuredHeight(), marginPaint);
+    canvas.drawLine(margin+4, 0, margin+4, getMeasuredHeight(), marginPaint);
 
     // Move the text across from the margin
     canvas.save();
-    canvas.translate(margin, 0);
+    canvas.translate(margin+4, 0);
 
     // Use the TextView to render the text
     super.onDraw(canvas);
@@ -68,7 +69,7 @@ public class NoteTextView extends TextView {
 	    linePaint.setColor(myResources.getColor(R.color.notepad_lines));
 
 	    // Get the paper background color and the margin width.
-	    paperColor = myResources.getColor(R.color.notepad_paper);
+	    paperColor = myResources.getColor(R.color.notepad_text);
 	    margin = myResources.getDimension(R.dimen.notepad_margin);
   }
 }

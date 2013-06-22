@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    
+                
+    <net.markguerra.android.ui.NoteTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:gravity="center_vertical"
+    android:paddingLeft="5dip"
+    android:singleLine="true"
+    android:padding="10dp"
+    android:scrollbars="vertical"
+    android:textColor="@color/notepad_text"
+    android:fadingEdge="vertical"
+       android:layout_weight="3"
+	/>
+    
+    <view xmlns:android="http://schemas.android.com/apk/res/android"
+    class="net.markguerra.android.glwallpapertest.NoteEditor$LinedEditText"
+    android:id="@+id/note"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/notepad_paper"
+    android:padding="5dp"
+    android:textColor="@color/notepad_text"
+    android:scrollbars="vertical"
+    android:fadingEdge="vertical"
+    android:gravity="top"
+    android:textSize="22sp"
+    android:capitalize="sentences"
+    android:layout_weight="1"
+    
+    
+/>
+        
+
+</LinearLayout>
