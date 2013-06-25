@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<net.markguerra.android.ui.NoteTextView
+<net.shan.livewallpaper.ui.NoteTextView
      xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
