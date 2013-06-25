@@ -69,7 +69,7 @@ public class NoteTextView extends TextView {
 	    linePaint.setColor(myResources.getColor(R.color.notepad_lines));
 
 	    // Get the paper background color and the margin width.
-	    paperColor = myResources.getColor(R.color.notepad_text);
+	    paperColor = myResources.getColor(R.color.notepad_paper);
 	    margin = myResources.getDimension(R.dimen.notepad_margin);
   }
 }

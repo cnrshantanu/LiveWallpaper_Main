@@ -1,11 +1,16 @@
 package net.markguerra.android.glwallpapertest;
 
+import net.markguerra.android.glwallpapertest.NotePad;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,39 +49,51 @@ public class ActivityContainer extends Activity{
         actionbar.addTab(TileTab);
         actionbar.addTab(NoteTab);
         actionbar.addTab(SettingsTab);
+        
+        Intent intent = getIntent();
+
+        if (intent.getData() == null) {
+            intent.setData(NotePad.Notes.CONTENT_URI);
+        }
+        
+        
     }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.list_options_menu, menu);
         return true;
     }
 
     
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
-//	switch(item.getItemId()) {
-//	case R.id.menuitem_search:
-//	Toast.makeText(appContext, "search", Toast.LENGTH_SHORT).show();
-//	return true;
-//	case R.id.menuitem_add:
-//	Toast.makeText(appContext, "add", Toast.LENGTH_SHORT).show();
-//	return true;
-//	case R.id.menuitem_share:
-//	Toast.makeText(appContext, "share", Toast.LENGTH_SHORT).show();
-//	return true;
-//	case R.id.menuitem_feedback:
-//	Toast.makeText(appContext, "feedback", Toast.LENGTH_SHORT).show();
-//	return true;
-//	case R.id.menuitem_about:
-//	Toast.makeText(appContext, "about", Toast.LENGTH_SHORT).show();
-//	return true;
-//	case R.id.menuitem_quit:
-//	Toast.makeText(appContext, "quit", Toast.LENGTH_SHORT).show();
-//	return true;
-//	}
-return false;
+
+	switch (item.getItemId()) {
+    case R.id.menu_add:
+      /*
+       * Launches a new Activity using an Intent. The intent filter for the Activity
+       * has to have action ACTION_INSERT. No category is set, so DEFAULT is assumed.
+       * In effect, this starts the NoteEditor Activity in NotePad.
+       */
+       	
+    	Intent intent = getIntent();
+    	//Uri link = Uri.parse("content://com.google.provider.NotePad/notes");
+    	startActivity(new Intent(Intent.ACTION_INSERT, getIntent().getData()));
+    	return true;
+    case R.id.menu_paste:
+      /*
+       * Launches a new Activity using an Intent. The intent filter for the Activity
+       * has to have action ACTION_PASTE. No category is set, so DEFAULT is assumed.
+       * In effect, this starts the NoteEditor Activity in NotePad.
+       */
+      startActivity(new Intent(Intent.ACTION_PASTE, getIntent().getData()));
+      return true;
+    default:
+        return super.onOptionsItemSelected(item);
+    }
+	
 }
 
     @Override
@@ -98,8 +115,8 @@ this.fragment = fragment;
 
 @Override
 public void onTabReselected(Tab tab, FragmentTransaction ft) {
-Toast.makeText(ActivityContainer.appContext, "Reselected!", Toast.LENGTH_LONG).show();
-}
+//Toast.makeText(ActivityContainer.appContext, "Reselected!", Toast.LENGTH_LONG).show();
+	}
 
 @Override
 public void onTabSelected(Tab tab, FragmentTransaction ft) {

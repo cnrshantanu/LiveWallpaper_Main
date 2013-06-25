@@ -45,6 +45,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 /**
  * Displays a list of notes. Will display notes from the {@link Uri}
@@ -462,7 +463,8 @@ public class NotesList extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
         // Constructs a new URI from the incoming URI and the row ID
-        Uri uri = ContentUris.withAppendedId(getIntent().getData(), id);
+    	Toast.makeText(ActivityContainer.appContext, "Bleh" + position + "id" + id, Toast.LENGTH_LONG).show();
+    	Uri uri = ContentUris.withAppendedId(getIntent().getData(), id);
 
         // Gets the action from the incoming Intent
         String action = getIntent().getAction();
