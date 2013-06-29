@@ -4,6 +4,7 @@
 package net.shan.livewallpaper.glwallpaper;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.locks.Lock;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -24,6 +25,7 @@ import android.graphics.Paint;
 import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Environment;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -37,6 +39,7 @@ import android.widget.Toast;
 public class NewRenderer implements GLWallpaperService.Renderer {
 
 	private static final int 	C_IMAGES_MAX 		= 4;
+	private FontRenderer		m_font;
 	private static final int 	C_FILE_NAME_MAX 	= 100;
 	private static Square1[]  	mImage		 		= new Square1[C_IMAGES_MAX];
 	private	static Boolean		m_init       		= false;
@@ -47,15 +50,20 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	private	int					image_index			= 0;
 	private	int					m_image_indexPrev	= 0;
 	private Resources 			resource;
+	private Context				context;
 	private  static String 		sourceFolder		= new String();
 	private LoadfromSDCard		m_loader = new LoadfromSDCard();
 		
 	/** Constructor to set the handed over context */
-	public NewRenderer(Resources r){//Context context) {
+	
+	public NewRenderer(Resources r,Context _context){//
+		
 		this.resource = r;
+		this.context = _context;
 		
 		// initialise the square
 		//this.square = new Square1();
+		
 		for(int i=0;i<C_IMAGES_MAX;i++)
 		{
 			mImage[i] = new Square1();
@@ -98,7 +106,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			
 		}
 		
-		
+		resource =r;
+			
 	}
 	public void setSourceFolder(String chosenFolder)
 	{
@@ -111,6 +120,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		Square1.C_TTL_MAX = value*1000;
 		Log.d("DEBUG","DEBUG c ttl is "+Square1.C_TTL_MAX);
 	}
+	private int m_index = 0;
 	private void loadImageThroughThread(final String filePath,final int index,final int tex_index,final GL10 gl)
 	{
 		 new Thread(new Runnable() {
@@ -121,10 +131,15 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			        if(imgFile.exists())
 			        {
 			          //  Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+			        	
+			        	Log.d("DEBUG", "DEBUG check time before shrinking i -" + m_index );
 			        	Bitmap b = ShrinkBitmap(imgFile.getAbsolutePath(), m_width/2, m_height/2);
+			        	Log.d("DEBUG", "DEBUG check time after shrinking i"+ m_index);
 			        	NewRenderer:mImage[index].loadGLTexture(gl,b,tex_index);
+			        	Log.d("DEBUG", "DEBUG check time loading texture i -"+ m_index);
 			        	Log.d("DEBUG", "DEBUG image loaded through thread" + b.toString() + "string path" + filePath);
 			        	b.recycle();
+			        	m_index++;
 			        }
 			        try{
 			        	
@@ -189,6 +204,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			mImage[index].draw(gl);
 		}
 		gl.glPopMatrix();
+		m_font.PrintAt(gl, "my name is antony gonzalis mein is duniya mein akela hoon dil mera khaali aur himmatwali ", m_width/2, m_height/2);
+		m_font.PrintAt(gl, "it sure feels great thought", 0, 300+m_font.GetTextHeight());
 		
 		
         
@@ -210,7 +227,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		gl.glViewport(0, 0, width, height); 	//Reset The Current Viewport
 		gl.glMatrixMode(GL10.GL_PROJECTION); 	//Select The Projection Matrix
 		gl.glLoadIdentity(); 					//Reset The Projection Matrix
-
+		Log.d("DEBUG","Surface changed width"+width+" height "+height);
 		//Calculate The Aspect Ratio Of The Window
 		GLU.gluPerspective(gl, 45.0f, (float)width / (float)height, 0.1f, 100.0f);
 		//GLU.gluOrtho2D(gl, 0, width, 0, height);
@@ -218,7 +235,11 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		gl.glMatrixMode(GL10.GL_MODELVIEW); 	//Select The Modelview Matrix
 		gl.glLoadIdentity(); 					//Reset The Modelview Matrix
 	}
-    
+    public void loadImage(GL10 gl,Bitmap bitmap,int index){
+    	
+    	 mImage[index].loadGLTexture(gl, bitmap);
+         bitmap.recycle();
+    }
 	public void loadImage(GL10 gl,String file_path,int index){
 		
 		String path = Environment.getExternalStorageDirectory()+ file_path;
@@ -317,6 +338,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	        bmpFactoryOptions.inJustDecodeBounds = false;
 	        bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
 	     return bitmap;
+	     
 	    }
 	
 	
@@ -358,11 +380,10 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			if(i == C_FILE_NAME_MAX)
 				break;
 		}
-
-		/*for ( int j = 0; j<i; j++)
+		for ( int j = 0; j<i; j++)
 		{
 		Log.d("*#DEBUG"," File "+j+" is "+ file_name[j]);
-		}*/
+		}
 	}
 	
 	
@@ -372,13 +393,25 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		//square.loadGLTexture(gl, this.resource,R.drawable.android2);
 		Log.d("*#DEBUG","*#DEBUG surface created"+m_init);
 		
+		m_font = new FontRenderer(context, gl);
+		
+		try {
+			m_font.LoadFont("TimesNewRoman.bff", gl);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		gl.glEnable(GL10.GL_TEXTURE_2D);			//Enable Texture Mapping ( NEW )
 		gl.glShadeModel(GL10.GL_SMOOTH); 			//Enable Smooth Shading
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f); 	//Black Background
+		gl.glClearColor(0.5f, 0.5f, 0.5f, 0.5f); 	//Black Background
 		gl.glClearDepthf(1.0f); 					//Depth Buffer Setup
 		gl.glEnable(GL10.GL_DEPTH_TEST); 			//Enables Depth Testing
 		gl.glDepthFunc(GL10.GL_LEQUAL); 			//The Type Of Depth Testing To Do
 		gl.glEnable(GL10.GL_CULL_FACE);
+		gl.glEnable(GL10.GL_ALPHA_TEST);
+		gl.glEnable(GL10.GL_BLEND);
+		gl.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		
 		//Really Nice Perspective Calculations
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
@@ -394,6 +427,9 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		{
 			loadImage(gl,mImage[i].m_filePath[0],mImage[i].m_filePath[1],i);
 		}
+		Bitmap bitmap= BitmapFactory.decodeResource(resource, R.drawable.glyphs_green);
+		loadImage(gl, bitmap, C_IMAGES_MAX-1);
+		
 				        
    	}
 	public void release() {

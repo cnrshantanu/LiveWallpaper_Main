@@ -23,52 +23,52 @@ import android.view.Display;
  */
 public class Square1 {
 	
-	private static final int C_REVOLUTION_VELOCITY_MAX = 2;
-	private static final int C_REVOLUTION_VELOCITY_MIN = 1;
+	protected static final int C_REVOLUTION_VELOCITY_MAX = 2;
+	protected static final int C_REVOLUTION_VELOCITY_MIN = 1;
 	public static int C_TTL_MAX = 8000;
-	private static int C_TTL_MIN = 1000;
-	private static float m_imageW 		= 40;
-	private static float m_imageH 		= 30;
+	protected static int C_TTL_MIN = 1000;
+	protected static float m_imageW 		= 40;
+	protected static float m_imageH 		= 30;
 	public String[] 	m_filePath 		= new String[2];
-	private long  time_start 			= 0;
-	private int   ttl 					= 0;
-	private boolean m_rotate 			= false;
-	private int   m_changeTexture 		= -1;
-	private float revolution_angle;
-	private float revolution_velocity;
+	protected long  time_start 			= 0;
+	protected int   ttl 					= 0;
+	protected boolean m_rotate 			= false;
+	protected int   m_changeTexture 		= -1;
+	protected float revolution_angle;
+	protected float revolution_velocity;
 	
 	
 	
-	private FloatBuffer vertexBuffer;	// buffer holding the vertices
-	private float vertices_frontface[] = {
+	protected FloatBuffer vertexBuffer;	// buffer holding the vertices
+	protected float vertices_frontface[] = {
 			-1.5f,  0.0f,  0.0f,		// V1 - bottom left
 			-1.5f,  2.5f,  0.0f,		// V2 - top left
 			 0.0f,  0.0f,  0.0f,		// V3 - bottom right
 			 0.0f,  2.5f,  0.0f,		// V4 - top right
 	};
 	
-	private float vertices_rightface[] = {
+	protected float vertices_rightface[] = {
 			 0.0f,  0.0f,  0.0f,		// V1 - bottom left
 			 0.0f,  2.5f,  0.0f,		// V2 - top left
 			 0.0f,  0.0f, -0.2f,		// V3 - bottom right
 			 0.0f,  2.5f, -0.2f,		// V4 - top right
 	};	
-	private float vertices_backface[] = {
+	protected float vertices_backface[] = {
 			 0.0f, 0.0f,  -0.2f,		// V1 - bottom left
 			 0.0f, 2.5f,  -0.2f,		// V2 - top left
 			-1.5f, 0.0f,  -0.2f,		// V3 - bottom right
 			-1.5f, 2.5f,  -0.2f,		// V4 - top right
 	};
 	
-	private float vertices_leftface[] = {
+	protected float vertices_leftface[] = {
 			-1.5f, 0.0f,  -0.2f,		// V3 - bottom right
 			-1.5f, 2.5f,  -0.2f,		// V4 - top right
 			-1.5f, 0.0f,   0.0f,		// V1 - bottom left
 			-1.5f, 2.5f,   0.0f,		// V2 - top left
 	};		
 			 
-	private FloatBuffer textureBuffer;	// buffer holding the texture coordinates
-	private float texture[] = {    		
+	protected FloatBuffer textureBuffer;	// buffer holding the texture coordinates
+	protected float texture[] = {    		
 			// Mapping coordinates for the vertices
 			0.0f, 1.0f,		// top left		(V2)
 			0.0f, 0.0f,		// bottom left	(V1)
@@ -76,7 +76,7 @@ public class Square1 {
 			1.0f, 0.0f,		// bottom right	(V3)
 	};		
 	/** The texture pointer */
-	private int[] textures = new int[2];
+	protected int[] textures = new int[2];
 
 	public Square1() {
 		// a float has 4 bytes so we allocate for each coordinate 4 bytes

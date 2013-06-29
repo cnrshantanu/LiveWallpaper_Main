@@ -37,10 +37,8 @@ public class MyWallpaperService extends GLWallpaperService {
 			// handle prefs, other initialization
 			//renderer = new MyRenderer();
 			
-			
-			
 			Log.d("*#DEBUG","*#DEBUG new renderer");
-			renderer = new NewRenderer(getResources());
+			renderer = new NewRenderer(getResources(),getApplicationContext());
 			setRenderer(renderer);
 			setRenderMode(RENDERMODE_CONTINUOUSLY);
 			

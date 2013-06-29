@@ -43,6 +43,6 @@ public class LiveWallpaperSettings extends PreferenceActivity
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
             String key) {
-    	Log.d("DEBUG","DEBUG Listener called");
+    	Log.d("DEBUG","Game of thrones Listener called");
     }
 }
