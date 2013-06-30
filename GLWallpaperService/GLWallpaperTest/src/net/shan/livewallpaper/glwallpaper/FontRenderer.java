@@ -13,6 +13,7 @@ import net.rbgrn.android.glwallpaperservice.GLWallpaperService.GLEngine;
 
 import android.content.res.AssetManager;
 import android.content.Context;
+import android.util.Log;
  
 public class FontRenderer 
 {
@@ -28,6 +29,7 @@ public class FontRenderer
 	float redVal, greenVal, blueVal;
 	int curX, curY;
 	int UVarray[];
+	int texture_id[];
 	
 	public void setDimensions(int _width,int _height){
 		m_width 	= _width;
@@ -52,9 +54,9 @@ public class FontRenderer
 		UVarray = new int[4];
 		
 		// Generate GL texture ID
-		int temp[] = new int[1];
-		gl.glGenTextures(1, temp, 0);
-		texID = temp[0];
+		texture_id = new int[1];
+		gl.glGenTextures(1, texture_id, 0);
+		texID = texture_id[0];
 		
 	    gl.glBindTexture(GL10.GL_TEXTURE_2D, texID);
 	    
@@ -418,4 +420,8 @@ public class FontRenderer
 		return (int)(fntCellHeight * yScale);
 	}
 	
+	public void release(GL10 gl){
+		gl.glDeleteTextures(1, texture_id, 0);
+		
+	}
 }

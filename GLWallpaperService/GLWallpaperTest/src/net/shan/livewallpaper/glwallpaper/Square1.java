@@ -25,8 +25,8 @@ public class Square1 {
 	
 	protected static final int C_REVOLUTION_VELOCITY_MAX = 2;
 	protected static final int C_REVOLUTION_VELOCITY_MIN = 1;
-	public static int C_TTL_MAX = 8000;
-	protected static int C_TTL_MIN = 1000;
+	public static int C_TTL_MAX = 48000;
+	protected static int C_TTL_MIN = 21000;
 	protected static float m_imageW 		= 40;
 	protected static float m_imageH 		= 30;
 	public String[] 	m_filePath 		= new String[2];

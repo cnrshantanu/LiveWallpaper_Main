@@ -42,6 +42,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 	private FontRenderer		m_font;
 	private static final int 	C_FILE_NAME_MAX 	= 100;
 	private static Square1[]  	mImage		 		= new Square1[C_IMAGES_MAX];
+	private SquareNote			mNote;				
 	private	static Boolean		m_init       		= false;
 	private int 				m_width 			= 320;
 	private int 				m_height 			= 180;
@@ -108,6 +109,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		
 		resource =r;
 			
+		mNote = new SquareNote(resource,context);
 	}
 	public void setSourceFolder(String chosenFolder)
 	{
@@ -177,6 +179,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			}
 			
 		}
+		
+		mNote.setQuadrant(1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
 		// Reset the Modelview Matrix
@@ -192,7 +196,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		
 		{
 			//gl.glTranslatef(x,y,0);
-			mImage[index].draw(gl);
+			//mImage[index].draw(gl);
 			gl.glTranslatef(1.5f,0f,0f);
 			index++;
 			mImage[index].draw(gl);
@@ -204,9 +208,10 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			mImage[index].draw(gl);
 		}
 		gl.glPopMatrix();
-		m_font.PrintAt(gl, "my name is antony gonzalis mein is duniya mein akela hoon dil mera khaali aur himmatwali ", m_width/2, m_height/2);
-		m_font.PrintAt(gl, "it sure feels great thought", 0, 300+m_font.GetTextHeight());
 		
+		
+		
+		mNote.Draw(gl);
 		
         
 		
@@ -224,6 +229,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		}
 		m_width = width;
 		m_height = height;
+		mNote.setDimensions(m_width, m_height);
 		gl.glViewport(0, 0, width, height); 	//Reset The Current Viewport
 		gl.glMatrixMode(GL10.GL_PROJECTION); 	//Select The Projection Matrix
 		gl.glLoadIdentity(); 					//Reset The Projection Matrix
@@ -404,7 +410,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		
 		gl.glEnable(GL10.GL_TEXTURE_2D);			//Enable Texture Mapping ( NEW )
 		gl.glShadeModel(GL10.GL_SMOOTH); 			//Enable Smooth Shading
-		gl.glClearColor(0.5f, 0.5f, 0.5f, 0.5f); 	//Black Background
+		gl.glClearColor(0f, 0f, 0f, 0f); 	//Black Background
 		gl.glClearDepthf(1.0f); 					//Depth Buffer Setup
 		gl.glEnable(GL10.GL_DEPTH_TEST); 			//Enables Depth Testing
 		gl.glDepthFunc(GL10.GL_LEQUAL); 			//The Type Of Depth Testing To Do
@@ -416,42 +422,32 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		//Really Nice Perspective Calculations
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
 		
-		
-		//if(m_init)
-		 //return;
-		
 		m_init = true;
 	
-		//int index = 0;
 		for(int i = 0;i<C_IMAGES_MAX;i++)
 		{
 			loadImage(gl,mImage[i].m_filePath[0],mImage[i].m_filePath[1],i);
 		}
-		Bitmap bitmap= BitmapFactory.decodeResource(resource, R.drawable.glyphs_green);
-		loadImage(gl, bitmap, C_IMAGES_MAX-1);
 		
+		mNote.onSurfaceCreated(gl);
 				        
    	}
-	public void release() {
+	public void release(GL10 gl) {
 		if(!m_init)
 			return;
 		
-	}
-
-	public void onSurfacePause(GL10 gl, int width, int height) {
-		// TODO Auto-generated method stub
-		if(!m_init)
-			return;
-		
-		Log.d("*#DEBUG","*#DEBUG surface DESTROYED");
-		release();
-		Log.d("*#DEBUG","*#DEBUG And i am released");
 		for(int i=0;i<C_IMAGES_MAX;i++)
 		{
 			mImage[i].release(gl);
 		}
+		m_font.release(gl);
 		image_index = m_image_indexPrev;
 		m_init = false;
+	}
+
+	public void onSurfacePause(GL10 gl, int width, int height) {
+		// TODO Auto-generated method stub
+		release(gl);
 	}
 
 	@Override

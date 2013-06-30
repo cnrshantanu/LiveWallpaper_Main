@@ -74,7 +74,7 @@ public class MyWallpaperService extends GLWallpaperService {
 		public void onDestroy() {
 			super.onDestroy();
 			if (renderer != null) {
-				renderer.release(); // assuming yours has this method - it should!
+				//renderer.release(); // assuming yours has this method - it should!
 			}
 			renderer = null;
 		}
