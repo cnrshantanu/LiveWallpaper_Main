@@ -14,6 +14,7 @@ public class MyWallpaperService extends GLWallpaperService {
 	
 	public MyWallpaperService() {
 		super();
+		
 	}
 	public Engine onCreateEngine() {
 		MyEngine engine = new MyEngine();

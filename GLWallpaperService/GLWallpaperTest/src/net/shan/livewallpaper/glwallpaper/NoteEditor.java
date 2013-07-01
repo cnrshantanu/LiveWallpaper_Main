@@ -478,7 +478,11 @@ public class NoteEditor extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle all of the possible menu actions.
-        switch (item.getItemId()) {
+        
+    	SquareNote.reQuery();
+    	
+    	switch (item.getItemId()) {
+        
         case R.id.menu_save:
             String text = mText.getText().toString();
             updateNote(text, null);

@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class NotesFragment extends ListFragment {
 
-	private static final String[] PROJECTION = new String[] {
+	public static final String[] PROJECTION = new String[] {
         NotePad.Notes._ID, // 0
         NotePad.Notes.COLUMN_NAME_TITLE, // 1
 	};

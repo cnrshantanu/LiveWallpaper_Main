@@ -46,20 +46,24 @@ public final class R {
         public static final int wood=0x7f020011;
     }
     public static final class id {
-        public static final int context_copy=0x7f0a000a;
-        public static final int context_delete=0x7f0a000b;
-        public static final int context_open=0x7f0a0009;
+        public static final int context_copy=0x7f0a000e;
+        public static final int context_delete=0x7f0a000f;
+        public static final int context_open=0x7f0a000d;
         public static final int fragment_container=0x7f0a0000;
-        public static final int menu_add=0x7f0a000c;
-        public static final int menu_delete=0x7f0a0008;
-        public static final int menu_paste=0x7f0a000d;
-        public static final int menu_revert=0x7f0a0007;
-        public static final int menu_save=0x7f0a0006;
+        public static final int menu_add=0x7f0a0010;
+        public static final int menu_delete=0x7f0a000c;
+        public static final int menu_paste=0x7f0a0011;
+        public static final int menu_revert=0x7f0a000b;
+        public static final int menu_save=0x7f0a000a;
         public static final int note=0x7f0a0001;
-        public static final int ok=0x7f0a0004;
-        public static final int path=0x7f0a0005;
+        public static final int ok=0x7f0a0008;
+        public static final int path=0x7f0a0009;
+        public static final int quad1=0x7f0a0003;
+        public static final int quad2=0x7f0a0004;
+        public static final int quad3=0x7f0a0005;
+        public static final int quad4=0x7f0a0006;
         public static final int textView2=0x7f0a0002;
-        public static final int title=0x7f0a0003;
+        public static final int title=0x7f0a0007;
     }
     public static final class layout {
         public static final int main=0x7f030000;

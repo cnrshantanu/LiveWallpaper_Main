@@ -77,7 +77,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
        * has to have action ACTION_INSERT. No category is set, so DEFAULT is assumed.
        * In effect, this starts the NoteEditor Activity in NotePad.
        */
-       	
+    	SquareNote.reQuery();
     	Intent intent = getIntent();
     	//Uri link = Uri.parse("content://com.google.provider.NotePad/notes");
     	startActivity(new Intent(Intent.ACTION_INSERT, getIntent().getData()));
@@ -88,8 +88,9 @@ public boolean onOptionsItemSelected(MenuItem item) {
        * has to have action ACTION_PASTE. No category is set, so DEFAULT is assumed.
        * In effect, this starts the NoteEditor Activity in NotePad.
        */
-      startActivity(new Intent(Intent.ACTION_PASTE, getIntent().getData()));
-      return true;
+    	SquareNote.reQuery();
+    	startActivity(new Intent(Intent.ACTION_PASTE, getIntent().getData()));
+    	return true;
     default:
         return super.onOptionsItemSelected(item);
     }
