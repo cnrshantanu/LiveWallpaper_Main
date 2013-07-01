@@ -1,6 +1,7 @@
 package net.shan.livewallpaper.glwallpaper;
 
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.sql.Struct;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -25,7 +26,7 @@ public class SquareNote {
         NotePad.Notes.COLUMN_NAME_TITLE, // 1
         NotePad.Notes.COLUMN_NAME_NOTE	// 2
 	};
-		
+	
 	private QuadPosition[] m_quadPos = new QuadPosition[4];
 	private Resources m_resource;
 	private Context	  m_context;
@@ -33,14 +34,16 @@ public class SquareNote {
 	private Cursor	  m_cursor;
 	private String	  m_noteContent = "NO notes inserted";
 	private static 	  Boolean	m_requery = false;
+	private SquareBackground	m_background;
 	FontRenderer 	  m_text;
 	
 	public SquareNote(Resources r,Context _context){
 		
-		m_resource 	= r;
-		m_context	= _context;
-		m_width		= 800;
-		m_height	= 600;
+		m_resource 			= r;
+		m_context			= _context;
+		m_width				= 800;
+		m_height			= 600;
+		m_background		= new SquareBackground();
 		
 		m_cursor 	= m_context.getContentResolver().query(
 			  			NotePad.Notes.CONTENT_URI,            // Use the default content URI for the provider.
@@ -51,8 +54,7 @@ public class SquareNote {
 						);
 		
 		setNote();
-		
-        
+		        
 		for(int i = 0;i<4;i++){
 			
 			m_quadPos[i] = new QuadPosition();
@@ -83,6 +85,7 @@ public class SquareNote {
 		
 		try {
 			m_text.LoadFont("TimesNewRoman.bff", gl);
+			m_text.SetPolyColor(0.827f, 0.3294f, 0f);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,8 +133,8 @@ public class SquareNote {
 				
 			}
 				
-		
-		
+			
+			m_background.draw(gl);
 			m_text.PrintAt(gl,m_noteContent,m_quadPos[m_quad].x,m_quadPos[m_quad].y);
 			
 //			m_text.PrintAt(gl, "when the storm come" +
