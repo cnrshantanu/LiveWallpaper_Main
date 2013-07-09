@@ -470,6 +470,7 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 		{
 			//Log.d("Change","1st quadrant");
 			mImage[0].startRotation();
+			mNote.onTouchEvent(event);
 		}
 		
 		else if (xValue <= m_width/2 && yValue >= m_height/2)
@@ -490,6 +491,8 @@ public class NewRenderer implements GLWallpaperService.Renderer {
 			mImage[2].startRotation();
 			
 		}
+		
+		//mNote.onTouchEvent(event);
 			
 		
 	}

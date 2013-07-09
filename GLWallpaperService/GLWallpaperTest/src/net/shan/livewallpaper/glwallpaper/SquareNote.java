@@ -9,6 +9,9 @@ import javax.microedition.khronos.opengles.GL10;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.drm.DrmStore.Action;
+import android.util.Log;
+import android.view.MotionEvent;
 
 /*
 	author : Shantanu Das
@@ -30,7 +33,7 @@ public class SquareNote {
 	private QuadPosition[] m_quadPos = new QuadPosition[4];
 	private Resources m_resource;
 	private Context	  m_context;
-	private int		  m_quad,m_width,m_height;
+	private int		  m_quad,m_width,m_height,m_index;
 	private Cursor	  m_cursor;
 	private String	  m_noteContent = "NO notes inserted";
 	private static 	  Boolean	m_requery = false;
@@ -43,6 +46,7 @@ public class SquareNote {
 		m_context			= _context;
 		m_width				= 800;
 		m_height			= 600;
+		m_index				= 0;
 		m_background		= new SquareBackground();
 		
 		m_cursor 	= m_context.getContentResolver().query(
@@ -66,15 +70,43 @@ public class SquareNote {
 		m_noteContent = " NO NOTES YET BUOY";
 		if(m_cursor != null){
 			
-			if(m_cursor.moveToFirst()) {
+		
+			if(m_cursor.moveToPosition(m_index)) {
+				
+				int colNoteIndex 	= m_cursor.getColumnIndex(NotePad.Notes.COLUMN_NAME_NOTE);
+		        m_noteContent 		= m_cursor.getString(colNoteIndex);
+		        
+			}
+			else if(m_cursor.moveToFirst()) {
 				
 				int colNoteIndex 	= m_cursor.getColumnIndex(NotePad.Notes.COLUMN_NAME_NOTE);
 		        m_noteContent 		= m_cursor.getString(colNoteIndex);
 		        
 			}
 		}
-	
 	}
+	
+	private void changeNote(){
+		
+		if(m_cursor != null){
+			
+			
+			if(m_cursor.moveToNext()) {
+				
+				int colNoteIndex 	= m_cursor.getColumnIndex(NotePad.Notes.COLUMN_NAME_NOTE);
+		        m_noteContent 		= m_cursor.getString(colNoteIndex);
+		        
+			}
+			else if(m_cursor.moveToFirst()) {
+				
+				int colNoteIndex 	= m_cursor.getColumnIndex(NotePad.Notes.COLUMN_NAME_NOTE);
+		        m_noteContent 		= m_cursor.getString(colNoteIndex);
+		        
+			}
+		}
+		m_index = m_cursor.getPosition();
+	}
+	
 	public static void reQuery(){
 		m_requery = true;
 	}
@@ -150,6 +182,12 @@ public class SquareNote {
 //					"Thank you do well and definitely fare well",m_quadPos[3].x,m_quadPos[3].y);
 		
 	
+	}
+	
+	public void onTouchEvent(MotionEvent event){
+		
+		if(event.getAction() == MotionEvent.ACTION_UP)
+			changeNote();
 	}
 	
 	public void release(GL10 gl){
