@@ -14,7 +14,8 @@ import android.widget.ImageView;
 
 public class TilesFragment extends Fragment {
 
-    @Override
+    private ImageView m_quad1,m_quad2,m_quad3,m_quad4;
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
     
@@ -36,21 +37,23 @@ public class TilesFragment extends Fragment {
 		super.onStart();
 		
 		/** Setting the multiselect choice mode for the listview */
-		ImageView iv = (ImageView)getActivity().findViewById(R.id.quad1);
-    	iv.setOnClickListener(clickListener);	
-    	iv = (ImageView)getActivity().findViewById(R.id.quad2);
-    	iv.setOnClickListener(clickListener);	
-    	iv = (ImageView)getActivity().findViewById(R.id.quad3);
-    	iv.setOnClickListener(clickListener);	
-    	iv = (ImageView)getActivity().findViewById(R.id.quad4);
-    	iv.setOnClickListener(clickListener);	
+		m_quad1 = (ImageView)getActivity().findViewById(R.id.quad1);
+		m_quad1.setOnClickListener(clickListener);	
+		m_quad2 = (ImageView)getActivity().findViewById(R.id.quad2);
+		m_quad2.setOnClickListener(clickListener);	
+		m_quad3 = (ImageView)getActivity().findViewById(R.id.quad3);
+		m_quad3.setOnClickListener(clickListener);	
+    	m_quad4 = (ImageView)getActivity().findViewById(R.id.quad4);
+    	m_quad4.setOnClickListener(clickListener);	
 	}
     
     private OnClickListener clickListener = new OnClickListener() {
 
         public void onClick(View v) {
         	
-			Log.d("COW"," we have an image");
+			if(v.equals(m_quad1))
+				m_quad1.setImageResource(R.drawable.app_image);
+		
         }
 };
 }
