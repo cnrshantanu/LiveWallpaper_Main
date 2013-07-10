@@ -17,7 +17,7 @@ public class TilesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//    	ImageView iv = (ImageView)getActivity().findViewById(R.id.quad1);
+    
 //    	iv.setOnClickListener(new OnClickListener(){
 //
 //		@Override
@@ -31,4 +31,26 @@ public class TilesFragment extends Fragment {
     	return inflater.inflate(R.layout.tab_tilefragment, container, false);
     }
     
+    @Override
+	public void onStart() {
+		super.onStart();
+		
+		/** Setting the multiselect choice mode for the listview */
+		ImageView iv = (ImageView)getActivity().findViewById(R.id.quad1);
+    	iv.setOnClickListener(clickListener);	
+    	iv = (ImageView)getActivity().findViewById(R.id.quad2);
+    	iv.setOnClickListener(clickListener);	
+    	iv = (ImageView)getActivity().findViewById(R.id.quad3);
+    	iv.setOnClickListener(clickListener);	
+    	iv = (ImageView)getActivity().findViewById(R.id.quad4);
+    	iv.setOnClickListener(clickListener);	
+	}
+    
+    private OnClickListener clickListener = new OnClickListener() {
+
+        public void onClick(View v) {
+        	
+			Log.d("COW"," we have an image");
+        }
+};
 }
